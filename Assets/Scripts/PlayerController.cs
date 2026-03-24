@@ -59,10 +59,8 @@ public class PlayerController : MonoBehaviour
     }
     public void OnInteract(InputAction.CallbackContext context)
     {
-            Debug.Log("le doy a la E");
         if (context.started)
         {
-            Debug.Log("estoy performando");
             TryInteract();
         }
     }
@@ -100,7 +98,6 @@ public class PlayerController : MonoBehaviour
 
     private void TryInteract()
     {
-        Debug.Log("intento interactuar");
         Ray ray = new Ray(_camera.transform.position, _camera.transform.forward);
         RaycastHit hit;
        Debug.DrawRay(_camera.transform.position, _camera.transform.forward * _interactionDistance, Color.yellow);
@@ -109,9 +106,7 @@ public class PlayerController : MonoBehaviour
             IPickeable pickeable = hit.collider.GetComponent<IPickeable>();
 
             if(pickeable != null)
-            {
                 pickeable.Pick();
-            }
         }
     }
     #endregion

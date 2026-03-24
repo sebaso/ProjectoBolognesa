@@ -193,7 +193,6 @@ GameObject:
   - component: {fileID: 178992535}
   - component: {fileID: 178992538}
   - component: {fileID: 178992537}
-  - component: {fileID: 178992536}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -216,27 +215,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 680804183}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -17.41}
---- !u!65 &178992536
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 178992534}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &178992537
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -683,7 +661,6 @@ GameObject:
   - component: {fileID: 311038313}
   - component: {fileID: 311038316}
   - component: {fileID: 311038315}
-  - component: {fileID: 311038314}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -706,27 +683,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 680804183}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &311038314
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 311038312}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &311038315
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1018,6 +974,7 @@ GameObject:
   m_Component:
   - component: {fileID: 680804183}
   - component: {fileID: 680804184}
+  - component: {fileID: 680804185}
   m_Layer: 0
   m_Name: Herramienta
   m_TagString: Untagged
@@ -1056,6 +1013,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Pickeable
   _pickeableObject: {fileID: 680804182}
   _playerObject: {fileID: 1922631603}
+--- !u!65 &680804185
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680804182}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.3789356, y: 0.7145493, z: 0.610204}
+  m_Center: {x: 0.3377949, y: 0.10834217, z: 0.19489801}
 --- !u!1 &925882990
 GameObject:
   m_ObjectHideFlags: 0
