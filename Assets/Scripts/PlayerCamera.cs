@@ -18,7 +18,6 @@ public class PlayerCamera : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -31,8 +30,11 @@ public class PlayerCamera : MonoBehaviour
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
+        // YAW
         _orientation.rotation = Quaternion.Euler(0f, yRotation, 0f);
+
+        // PITCH
+        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     }
     public void SetLookInput(Vector2 lookInput)
     {

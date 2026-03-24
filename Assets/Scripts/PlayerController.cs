@@ -30,12 +30,13 @@ public class PlayerController : MonoBehaviour
     private bool _usingGamepad;
     [Header("Aiming")] 
     [SerializeField]
+    private float _interactionDistance = 3f;
+    [SerializeField]
     private float _camRayLenght;
     [SerializeField]
     private LayerMask _pointerLayer;
     [SerializeField]
     private Transform _aimingPivot;
-
     void Start()
     {
         _camera = Camera.main;
@@ -55,6 +56,15 @@ public class PlayerController : MonoBehaviour
             _lookInput = Vector2.zero;
         _camera.GetComponent<PlayerCamera>().SetLookInput(_lookInput);
         _usingGamepad = context.control.device is Gamepad;
+    }
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+            Debug.Log("le doy a la E");
+        if (context.started)
+        {
+            Debug.Log("estoy performando");
+            TryInteract();
+        }
     }
     /// <summary>
     /// Comprueba si está en contacto con el suelo y actualiza la booleana _grounded.
@@ -86,6 +96,23 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.red;
         // Mostramos el Gizmo del ground check pintando un cubo
         Gizmos.DrawWireCube(_groundCheckPoint.position, _groundCheckSize);
+    }
+
+    private void TryInteract()
+    {
+        Debug.Log("intento interactuar");
+        Ray ray = new Ray(_camera.transform.position, _camera.transform.forward);
+        RaycastHit hit;
+       Debug.DrawRay(_camera.transform.position, _camera.transform.forward * _interactionDistance, Color.yellow);
+       if(Physics.Raycast(ray, out hit, _interactionDistance))
+        {
+            IPickeable pickeable = hit.collider.GetComponent<IPickeable>();
+
+            if(pickeable != null)
+            {
+                pickeable.Pick();
+            }
+        }
     }
     #endregion
 }
