@@ -96,24 +96,39 @@ public class Client : MonoBehaviour
         if (QueueManager.Instance != null)
         {
             QueueManager.Instance.AddClient(this);
+            Debug.Log("[Client] Arrived at entrance, joining queue line.");
         }
     }
     public void initialize()
     {
-        //int randomIndex = Random.Range(0, clientModels.Length); cuando hayan modelos
-        GameObject selectedModel = Instantiate(clientModels[0], transform.position, Quaternion.Euler(0, 0, 0));
-        //selectedModel.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        int randomIndex = Random.Range(0, clientModels.Length);
+        GameObject selectedModel = Instantiate(clientModels[randomIndex], transform.position, Quaternion.Euler(0, 0, 0));
+        selectedModel.transform.localRotation = Quaternion.Euler(0, 0, 0);
         selectedModel.transform.SetParent(transform);
         Initialized = true;
         selectedModel.transform.position = selectedModel.transform.position + new Vector3(0, -0.5f, 0);
 
-        // Randomize Bouncer Attributes
         age = Random.Range(15, 45);
-        hasID = Random.value > 0.1f; // 90% have ID
+        hasID = Random.value > 0.1f; // 90% tiene ID
         sobriety = Random.Range(0.5f, 1.0f);
-        string[] styles = { "Casual", "Formal", "Sporty" };
+        string[] styles = { "Casual", "Formal", "Deportivo" };
         dressCode = styles[Random.Range(0, styles.Length)];
     }
+
+    public void BeginJourney()
+    {
+        if (QueueManager.Instance != null && QueueManager.Instance.queueEntrance != null)
+        {
+            SetState(State.WalkingToQueue);
+            WalkTo(QueueManager.Instance.queueEntrance.position);
+            Debug.Log("[Client] Starting journey to queue entrance.");
+        }
+        else
+        {
+            ArriveAtQueue();
+        }
+    }
+
     public void EnterWaitQueue(Vector3 slotPosition)
     {
         _queueSlotPosition = slotPosition;
@@ -257,6 +272,14 @@ public class Client : MonoBehaviour
     private void SetState(State newState)
     {
         CurrentState = newState;
+    }
+    void OnDestroy()
+    {
+        if (QueueManager.Instance != null)
+        {
+            QueueManager.Instance.RemoveClient(this);
+            ClientManager.Instance.clients.Remove(gameObject);
+        }
     }
 
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class ClientManager : MonoBehaviour
 {
@@ -7,8 +8,22 @@ public class ClientManager : MonoBehaviour
     public Transform spawnPoint;
     public Transform queuePoint;
     public float spawnInterval = 3f;
-
+    public int maxClients = 10;
+    public List<GameObject> clients;
     private float _spawnTimer;
+    public static ClientManager Instance { get; private set; }
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -21,7 +36,10 @@ public class ClientManager : MonoBehaviour
         {
             return;
         }
-
+        if (clients.Count >= maxClients)
+        {
+            return;
+        }
         _spawnTimer -= Time.deltaTime;
         if (_spawnTimer <= 0f)
         {
@@ -43,7 +61,8 @@ public class ClientManager : MonoBehaviour
         if (client != null)
         {
             client.SetQueuePoint(queuePoint);
-            QueueManager.Instance?.AddClient(client);
+            client.BeginJourney();
         }
+        clients.Add(clientObj);
     }
 }
