@@ -1,21 +1,28 @@
 using System;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class Pickeable : MonoBehaviour, IPickeable
 {
-    [SerializeField]
-    private GameObject _pickeableObject;
-    [SerializeField]
-    private GameObject _playerObject;
-    void Start()
+    private Vector3 _originalPos;
+    [SerializeField] 
+    private Vector3 _holdRotationOffset;
+    public void Start()
     {
-        _pickeableObject.SetActive(true);
+        _originalPos = transform.position;
+    }
+    public void Pick(Transform holdPoint)
+    {
+        transform.SetParent(holdPoint);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.Euler(_holdRotationOffset);
     }
 
-    public void Pick()
+    public void Drop()
     {
-        _pickeableObject.SetActive(false);
-        _playerObject.SetActive(true);
+        transform.SetParent(null);
+        transform.position = _originalPos;
+        transform.localRotation = Quaternion.Euler(_holdRotationOffset);
     }
 }

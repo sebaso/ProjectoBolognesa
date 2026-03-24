@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCamera : MonoBehaviour
 {
+    [Header("Camera Settings")]
     [SerializeField]
     private float _sensX = 0f;
     [SerializeField]
@@ -13,14 +15,12 @@ public class PlayerCamera : MonoBehaviour
     private Transform _orientation;
     private Vector2 _lookInput;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         float mouseX = _lookInput.x * Time.deltaTime * _sensX;

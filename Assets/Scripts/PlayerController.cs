@@ -1,12 +1,13 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
+    public Action<bool> OnHoldTool;
     [Header("Camera Settings")]
     private Camera _camera;
-   
     public bool showGizmos = false;
     [Header("Collision pre detection")]
     [SerializeField]
@@ -37,6 +38,11 @@ public class PlayerController : MonoBehaviour
     private LayerMask _pointerLayer;
     [SerializeField]
     private Transform _aimingPivot;
+    [Header("Inventory")]
+    [SerializeField]
+    private Transform _holdingPoint;
+    [SerializeField]
+    private IPickeable _holdingTool;
     void Start()
     {
         _camera = Camera.main;
@@ -61,9 +67,12 @@ public class PlayerController : MonoBehaviour
     {
         if (context.started)
         {
+            if (_holdingTool != null)
+                DropItem();
             TryInteract();
         }
     }
+
     /// <summary>
     /// Comprueba si está en contacto con el suelo y actualiza la booleana _grounded.
     /// </summary>
@@ -106,7 +115,20 @@ public class PlayerController : MonoBehaviour
             IPickeable pickeable = hit.collider.GetComponent<IPickeable>();
 
             if(pickeable != null)
-                pickeable.Pick();
+            {
+                _holdingTool = pickeable;
+                pickeable.Pick(_holdingPoint);
+                OnHoldTool?.Invoke(true);
+            }
+        }
+    }
+    private void DropItem()
+    {
+        if (_holdingTool != null)
+        {
+            _holdingTool.Drop();
+            _holdingTool = null;
+            OnHoldTool?.Invoke(false);
         }
     }
     #endregion
