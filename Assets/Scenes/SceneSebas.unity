@@ -270,7 +270,6 @@ GameObject:
   - component: {fileID: 258295996}
   - component: {fileID: 258295997}
   - component: {fileID: 258295998}
-  - component: {fileID: 258295999}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -292,7 +291,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1196916587}
-  - {fileID: 568445717}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &258295994
@@ -387,39 +385,6 @@ MonoBehaviour:
   minSobriety: 0.7
   isMinigameActive: 0
   currentActiveTool: 
---- !u!114 &258295999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 258295991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d51049b2a1236e4488dcb47c0eebf8f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  showGizmos: 0
-  _movementSpeed: 8
-  _acceleration: 30
-  _checkLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  _checkPoint: {fileID: 2083487354}
-  _checkSize: 0.3
-  _checkDistance: 2
-  _rb: {fileID: 0}
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  _groundCheckPoint: {fileID: 568445717}
-  _groundCheckSize: {x: 0.1, y: 0.1, z: 0.1}
-  _camRayLenght: 2
-  _pointerLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  _aimingPivot: {fileID: 0}
-  _isAiming: 0
 --- !u!1 &301342358
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,37 +503,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &568445716
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 568445717}
-  m_Layer: 0
-  m_Name: Groundcheck
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &568445717
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 568445716}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.973, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 258295993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &991290680
 GameObject:
@@ -1138,7 +1072,7 @@ GameObject:
   - component: {fileID: 1873123703}
   - component: {fileID: 1873123702}
   - component: {fileID: 1873123706}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Plano
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1409,7 +1343,7 @@ Transform:
   m_GameObject: {fileID: 2059436474}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -25.745, y: 0.287, z: -7.69}
+  m_LocalPosition: {x: -25.61, y: 0.287, z: -7.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
