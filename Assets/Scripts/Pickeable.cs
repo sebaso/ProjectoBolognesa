@@ -1,16 +1,16 @@
 using System;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Pickeable : MonoBehaviour, IPickeable
 {
     private Vector3 _originalPos;
+    private Quaternion _originalRotation;
     [SerializeField] 
     private Vector3 _holdRotationOffset;
     public void Start()
     {
         _originalPos = transform.position;
+        _originalRotation = transform.localRotation;
     }
     public void Pick(Transform holdPoint)
     {
@@ -23,6 +23,6 @@ public class Pickeable : MonoBehaviour, IPickeable
     {
         transform.SetParent(null);
         transform.position = _originalPos;
-        transform.localRotation = Quaternion.Euler(_holdRotationOffset);
+        transform.localRotation = _originalRotation;
     }
 }
