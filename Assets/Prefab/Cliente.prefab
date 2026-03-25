@@ -48,12 +48,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   clientModels:
   - {fileID: 5405281638771103067, guid: 8d47184f185fe289bbe666df35879901, type: 3}
-  - {fileID: 7698260347848318290, guid: f180f1a36391fad8fa3eb54bc3c684a9, type: 3}
+  - {fileID: 8113730677099320665, guid: 5e7d8fe2b584d434d9e76b9141f2c570, type: 3}
   maxPatience: 60
   eatDuration: 8
   age: 0
   hasID: 0
   sobriety: 0
+  pupils: 0
+  hasIllegalItems: 0
   dressCode: 
   money: 0
   happiness: 0
