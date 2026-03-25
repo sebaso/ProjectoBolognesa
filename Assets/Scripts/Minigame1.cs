@@ -12,6 +12,8 @@ public class Minigame1 : MonoBehaviour
     private GameObject _selectArrow;
     [SerializeField]
     private Animator _keyAnimator;
+    [SerializeField]
+    private GameObject _failObj;
     
     [Header("Minigame Settings")]
     [SerializeField]
@@ -49,6 +51,7 @@ public class Minigame1 : MonoBehaviour
         _inGame = false;
         _hasStarted = false;
         _timeRemaining = _timeLimit;
+        _failObj.SetActive(false);
         SetWinState(3);
         StartMinigame();
     }
@@ -106,6 +109,7 @@ public class Minigame1 : MonoBehaviour
         _timeRemaining = _timeLimit;
         _hudMinigameCanvas.SetActive(true);
         _keyAnimator.Play("Spamming");
+        _keyAnimator.gameObject.SetActive(true);
     }
 
     private void IncrementValue()
@@ -137,6 +141,8 @@ public class Minigame1 : MonoBehaviour
         Debug.Log("You win!");
         _currentSpeed = 0f;
         transform.rotation = Quaternion.Euler(0f, 0f, _winStopAngle);
+        _keyAnimator.Play("Idle");
+        _keyAnimator.gameObject.SetActive(false);
         
         _inGame = false;
     }
@@ -146,6 +152,9 @@ public class Minigame1 : MonoBehaviour
         Debug.Log("You lose!");
         _currentSpeed = 0f;
         transform.rotation = Quaternion.Euler(0f, 0f, _loseStopAngle);
+        _keyAnimator.Play("Idle");
+        _keyAnimator.gameObject.SetActive(false);
+        _failObj.SetActive(true);
         
         _inGame = false;
     }
@@ -160,6 +169,7 @@ public class Minigame1 : MonoBehaviour
         if (_inGame) return;
         _keyAnimator.Play("Idle");
         _hudMinigameCanvas.SetActive(false);
+        _failObj.SetActive(false);
         Activate(false);
     }
 }
