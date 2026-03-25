@@ -12,8 +12,6 @@ public class BouncerManager : MonoBehaviour
     [Header("Inspection State")]
     public bool isMinigameActive = false;
     public string currentActiveTool = "";
-
-    // Events that minigame scripts can listen to
     public event System.Action<Client, string> OnMinigameStarted;
     public event System.Action<string> OnMinigameCompleted;
 

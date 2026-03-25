@@ -26,6 +26,8 @@ public class Client : MonoBehaviour
     public int age;
     public bool hasID;
     public float sobriety;
+    public int pupils;
+    public bool hasIllegalItems;
     public string dressCode;
 
     public int money;
@@ -110,7 +112,9 @@ public class Client : MonoBehaviour
 
         age = Random.Range(15, 45);
         hasID = Random.value > 0.1f; // 90% tiene ID
-        sobriety = Random.Range(0.5f, 1.0f);
+        sobriety = Random.Range(0.0f, 1.0f);
+        pupils = Random.Range(0, 1);
+        hasIllegalItems = Random.value > 0.9f;
         string[] styles = { "Casual", "Formal", "Deportivo" };
         dressCode = styles[Random.Range(0, styles.Length)];
     }
@@ -127,6 +131,30 @@ public class Client : MonoBehaviour
         {
             ArriveAtQueue();
         }
+    }
+    public int GetAge()
+    {
+        return age;
+    }
+    public bool GetHasID()
+    {
+        return hasID;
+    }
+    public float GetSobriety()
+    {
+        return sobriety;
+    }
+    public int GetPupils()
+    {
+        return pupils;
+    }
+    public bool GetHasIllegalItems()
+    {
+        return hasIllegalItems;
+    }
+    public string GetDressCode()
+    {
+        return dressCode;
     }
 
     public void EnterWaitQueue(Vector3 slotPosition)
