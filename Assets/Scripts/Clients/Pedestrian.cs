@@ -19,6 +19,12 @@ public class Pedestrian : MonoBehaviour
         }
     }
 
+    public void SetSpeed(float speed)
+    {
+        if (_agent == null) _agent = GetComponent<NavMeshAgent>();
+        _agent.speed = speed;
+    }
+
     void Update()
     {
         if (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)

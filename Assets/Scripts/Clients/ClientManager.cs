@@ -9,6 +9,8 @@ public class ClientManager : MonoBehaviour
     public Transform queuePoint;
     public float clientSpawnInterval = 10f;
     public int maxClients = 10;
+    public float minClientSpeed = 3f;
+    public float maxClientSpeed = 5f;
     public List<GameObject> clients;
     private float _clientTimer;
 
@@ -18,6 +20,8 @@ public class ClientManager : MonoBehaviour
     public float pedSpawnIntervalMax = 8f;
     public int minBlobSize = 1;
     public int maxBlobSize = 4;
+    public float minPedSpeed = 2.5f;
+    public float maxPedSpeed = 4.5f;
     public List<PedestrianRoute> pedestrianRoutes;
     private float _pedestrianTimer;
 
@@ -106,6 +110,7 @@ public class ClientManager : MonoBehaviour
         if (client != null)
         {
             client.SetQueuePoint(queuePoint);
+            client.SetSpeed(Random.Range(minClientSpeed, maxClientSpeed));
             client.BeginJourney();
         }
         clients.Add(clientObj);
@@ -128,6 +133,7 @@ public class ClientManager : MonoBehaviour
             Pedestrian ped = pedObj.GetComponent<Pedestrian>();
             if (ped != null)
             {
+                ped.SetSpeed(Random.Range(minPedSpeed, maxPedSpeed));
                 ped.SetRoute(route.end.position);
             }
         }

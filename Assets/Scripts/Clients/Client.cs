@@ -311,6 +311,12 @@ public class Client : MonoBehaviour
             _agent.SetDestination(destination);
         }
     }
+
+    public void SetSpeed(float speed)
+    {
+        if (_agent == null) _agent = GetComponent<NavMeshAgent>();
+        _agent.speed = speed;
+    }
     //para que no se mueva como idiota
     private void Freeze()
     {
