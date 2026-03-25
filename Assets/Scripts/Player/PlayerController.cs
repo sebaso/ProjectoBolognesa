@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         GroundCheck();
+        Debug.Log("Esta en el suelo:" + _grounded);
     }
     #region Methods
     /// <summary>

@@ -5,7 +5,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1f;
-        AudioManager.Instance.PlayGameMusic();
-        AudioManager.Instance.PitchRegular();
+        if(AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayGameMusic();
+            AudioManager.Instance.PitchRegular();
+        }
     }
 }

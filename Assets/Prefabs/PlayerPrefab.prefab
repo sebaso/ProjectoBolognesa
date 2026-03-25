@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ebf35a0a0abe4270ac2e2c0abae47c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  showGizmos: 0
+  showGizmos: 1
   _checkLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -266,14 +266,14 @@ MonoBehaviour:
   _rb: {fileID: 3083553175005422357}
   _groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   _groundCheckPoint: {fileID: 2555916262321871001}
-  _groundCheckSize: {x: 0, y: 0, z: 0}
+  _groundCheckSize: {x: 1, y: 0.01, z: 1}
   _interactionDistance: 3
-  _camRayLenght: 0
+  _camRayLenght: 100
   _pointerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   _aimingPivot: {fileID: 3950207894348537549}
   _holdingPoint: {fileID: 5388623962205058223}
 --- !u!135 &6424692231012968176
@@ -731,7 +731,7 @@ Transform:
   m_GameObject: {fileID: 8405420779083341500}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.9, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
