@@ -51,6 +51,7 @@ MonoBehaviour:
   _selectArrow: {fileID: 2936496283465433130}
   _keyAnimator: {fileID: 5967546436023809328}
   _failObj: {fileID: 4477871399356554954}
+  _exitButton: {fileID: 8461062496556239362}
   _maxSpeed: 25
   _incrementSpeed: 1
   _decrementSpeed: 0.5
