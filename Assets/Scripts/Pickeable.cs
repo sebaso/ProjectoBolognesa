@@ -23,6 +23,9 @@ public class Pickeable : MonoBehaviour, IPickeable
 
     public void Drop()
     {
+        Debug.Log("panel de HUD activo? " + HUDController.Instance.IsPanelActive);
+        Debug.Log("Pausa activa? " + GameMenuController.Instance.IsPauseActive);
+
         if(HUDController.Instance.IsPanelActive || GameMenuController.Instance.IsPauseActive) return;
         transform.SetParent(null);
         transform.position = _originalPos;

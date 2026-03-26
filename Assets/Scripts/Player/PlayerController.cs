@@ -28,10 +28,10 @@ public class PlayerController : MonoBehaviour
     private bool _grounded;
     [Header("Player controlers")]
     private Vector2 _lookInput;
-    private bool _usingGamepad;
+    private bool _usingGamepad = false;
     [Header("Aiming")] 
     [SerializeField]
-    private float _interactionDistance = 3f;
+    private float _interactionDistance = 1000f;
     [SerializeField]
     private float _camRayLenght;
     [SerializeField]
@@ -41,8 +41,19 @@ public class PlayerController : MonoBehaviour
     [Header("Inventory")]
     [SerializeField]
     private Transform _holdingPoint;
-    [SerializeField]
     private IPickeable _holdingTool;
+    private GameObject _holdingToolGO;
+    private String _toolTypeTag;
+    private LayerMask _toolLayer;
+    private LayerMask _tableLayer;
+    [SerializeField]
+    private LayerMask _clientLayer;
+    void Awake()
+    {
+        _tableLayer = LayerMask.NameToLayer("Table");
+        _toolLayer = LayerMask.NameToLayer("Tool");
+        _clientLayer = LayerMask.NameToLayer("Client");
+    }
     void Start()
     {
         _camera = Camera.main;
@@ -50,7 +61,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         GroundCheck();
-        Debug.Log("Esta en el suelo:" + _grounded);
     }
     #region Methods
     /// <summary>
@@ -70,35 +80,43 @@ public class PlayerController : MonoBehaviour
         {
             if (_holdingTool != null)
             {
-                //TODO: comprobar si se está soltando en la mesa o no (si no se está en la mesa no se suelta)
-                //if(mesa)
-                //DropItem();
-                //else
-                switch (CheckHoldedTool())
+                Ray ray = new Ray(_camera.transform.position, _camera.transform.forward);
+                RaycastHit hit;
+                if(Physics.Raycast(ray, out hit, _interactionDistance))
                 {
-                    case 1:
-                        GameManager.Instance.StartMinigame1();
-                        break;
-                    case 2:
-                        GameManager.Instance.StartMinigame2();
-                        break;
-                    case 3:
-                        GameManager.Instance.StartMinigame3();
-                        break;
-                    case 4:
-                        //TODO: interactuar con la pistola
-                        break;
-                    case 5:
-                        //TODO: interactuar con la escoba
-                        break;
-                    default:
-                        //No hacemos nada
-                        break;
+                     if (hit.collider.gameObject.layer == _clientLayer)
+                    {
+                        switch (CheckHoldedTool())
+                        {
+                            case 1:
+                                if(hit.collider.gameObject.CompareTag("Client"))
+                                    GameManager.Instance.StartMinigame1();
+                                break;
+                            case 2:
+                                if(hit.collider.gameObject.CompareTag("Client"))
+                                    GameManager.Instance.StartMinigame2();
+                                break;
+                            case 3:
+                                if(hit.collider.gameObject.CompareTag("Client"))
+                                    GameManager.Instance.StartMinigame3();
+                                break;
+                            case 4:
+                                //TODO: interactuar con la porra
+                                break;
+                            case 5:
+                                //TODO: interactuar con la pistola
+                                break;
+                            default:
+                                //No hacemos nada
+                                break;
+                        }
+                    }else if (hit.collider.gameObject.layer == _tableLayer || hit.collider.gameObject.layer == _toolLayer)
+                    {
+                        DropTool();
+                    }
                 }
             }
-            TryInteract();
-            
-            //TODO: Detectar qué objeto tiene
+            PickTool();
         }
     }
 
@@ -136,18 +154,24 @@ public class PlayerController : MonoBehaviour
 
     private int CheckHoldedTool()
     {
-        //TODO: comprobar el tipo de herramienta
-        //Según el tipo devuelve:
-        //1: alcoholimetro
-        //2: rayosx
-        //3: lector pupila
-        //4: pistola
-        //5: escoba
-
-        return 1;
+        switch (_toolTypeTag)
+        {
+            case "Alcoholimetro":
+                return 1;
+            case "RayosX":
+                return 2;
+            case "Lupa":
+                return 3;
+            case "Porra":
+                return 4;
+            case "Raygun":
+                return 5;
+            default:
+                return -1;
+        }
     }
 
-    private void TryInteract()
+    private void PickTool()
     {
         Ray ray = new Ray(_camera.transform.position, _camera.transform.forward);
         RaycastHit hit;
@@ -157,30 +181,21 @@ public class PlayerController : MonoBehaviour
 
             if(pickeable != null)
             {
+                _toolTypeTag = hit.collider.gameObject.tag;
+                _holdingToolGO = hit.collider.gameObject;
+                _holdingToolGO.GetComponent<BoxCollider>().enabled = false;
                 _holdingTool = pickeable;
                 pickeable.Pick(_holdingPoint);
                 OnHoldTool?.Invoke(true);
             }
         }
     }
-    private void DropItem()
+    private void DropTool()
     {
-        Ray ray = new Ray(_camera.transform.position, _camera.transform.forward);
-        RaycastHit hit;
-        if(Physics.Raycast(ray, out hit, _interactionDistance))
-        {
-            Debug.DrawRay(_camera.transform.position, _camera.transform.forward * _interactionDistance );
-            Debug.Log(hit.collider.gameObject.name);
-            if (hit.collider.gameObject.CompareTag("Table") || hit.collider.gameObject.CompareTag("Tool"))
-            {
-                if (_holdingTool != null)
-                {
-                    _holdingTool.Drop();
-                    _holdingTool = null;
-                    OnHoldTool?.Invoke(false);
-                }
-            }
-        }
+        _holdingToolGO.GetComponent<BoxCollider>().enabled = true;
+        _holdingTool.Drop();
+        _holdingTool = null;
+        OnHoldTool?.Invoke(false);
     }
     #endregion
 }

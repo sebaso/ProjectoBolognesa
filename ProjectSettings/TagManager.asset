@@ -4,8 +4,14 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Tool
   - Table
+  - Alcoholimetro
+  - RayosX
+  - Porra
+  - Lupa
+  - Raygun
+  - Client
+  - Sneaky
   layers:
   - Default
   - TransparentFX
@@ -13,9 +19,9 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Table
+  - Tool
+  - Client
   - 
   - 
   - 
