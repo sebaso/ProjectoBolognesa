@@ -3532,6 +3532,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a1c5e93bf5c2e4782753c795b1cf08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  _startedScore: 500
+  _totalScore: 0
+  _successScore: 17
+  _failScore: -25
+  _maxScore: 1000
+  _minScore: 0
 --- !u!4 &428530845
 Transform:
   m_ObjectHideFlags: 0
@@ -8142,7 +8148,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 380256833180798604, guid: caab8b9bbc702f744a67e545bc6d4041, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 380256833180798604, guid: caab8b9bbc702f744a67e545bc6d4041, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -8150,7 +8156,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4260583655056097684, guid: caab8b9bbc702f744a67e545bc6d4041, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5329434294692873350, guid: caab8b9bbc702f744a67e545bc6d4041, type: 3}
       propertyPath: m_CastShadows
@@ -8158,15 +8164,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6567289954030141880, guid: caab8b9bbc702f744a67e545bc6d4041, type: 3}
       propertyPath: m_LocalScale.x
-      value: 800
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 6567289954030141880, guid: caab8b9bbc702f744a67e545bc6d4041, type: 3}
       propertyPath: m_LocalScale.y
-      value: 800
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 6567289954030141880, guid: caab8b9bbc702f744a67e545bc6d4041, type: 3}
       propertyPath: m_LocalScale.z
-      value: 800
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 7147786902997494279, guid: caab8b9bbc702f744a67e545bc6d4041, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8214,15 +8220,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7460152324908814407, guid: caab8b9bbc702f744a67e545bc6d4041, type: 3}
       propertyPath: m_LocalScale.x
-      value: 600
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 7460152324908814407, guid: caab8b9bbc702f744a67e545bc6d4041, type: 3}
       propertyPath: m_LocalScale.y
-      value: 600
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 7460152324908814407, guid: caab8b9bbc702f744a67e545bc6d4041, type: 3}
       propertyPath: m_LocalScale.z
-      value: 600
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 8524526710920832508, guid: caab8b9bbc702f744a67e545bc6d4041, type: 3}
       propertyPath: m_LocalScale.x
