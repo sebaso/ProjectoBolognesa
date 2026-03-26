@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class ClientManager : MonoBehaviour
 {
+    public System.Action<int> OnNightStart;
+    public System.Action OnNightEnds;
     [Header("Client Spawning")]
     public GameObject clientPrefab;
     public Transform[] spawnPoints;
@@ -11,7 +13,10 @@ public class ClientManager : MonoBehaviour
     public int maxClients = 10;
     public List<GameObject> clients;
     private float _clientTimer;
-
+    [SerializeField]
+    private int _nightClients;
+    [SerializeField]
+    private int _remaningClients;
     [Header("Pedestrian Spawning")]
     public GameObject pedestrianPrefab;
     public float pedSpawnIntervalMin = 2f;
@@ -27,6 +32,8 @@ public class ClientManager : MonoBehaviour
     public float sneakySpawnInterval = 20f;
     [Range(0, 1)] public float sneakySpawnChance = 0.3f;
     private float _sneakyTimer;
+    private int _nightClientNumberMultiplier = 10;
+    private int _currentNight;
 
     [System.Serializable]
     public class PedestrianRoute
@@ -54,25 +61,35 @@ public class ClientManager : MonoBehaviour
         _clientTimer = clientSpawnInterval;
         _pedestrianTimer = Random.Range(pedSpawnIntervalMin, pedSpawnIntervalMax);
         _sneakyTimer = sneakySpawnInterval;
+        int nextNight = _currentNight + 1;
+        int nextClients = nextNight * _nightClientNumberMultiplier;
+        HUDController.Instance.OnEnableIntroPanel(nextNight, nextClients);
     }
 
+    public void StartNewNight()
+    {
+       _currentNight++;
+       _nightClients = _currentNight * _nightClientNumberMultiplier;
+       _remaningClients = _nightClients;
+       OnNightStart?.Invoke(_currentNight);
+    }
     void Update()
     {
-
-        _clientTimer -= Time.deltaTime;
-        if (_clientTimer <= 0f)
+        if(_nightClients > 0)
         {
-            TrySpawnClient();
-            _clientTimer = clientSpawnInterval;
+            _clientTimer -= Time.deltaTime;
+            if (_clientTimer <= 0f)
+            {
+                TrySpawnClient();
+                _clientTimer = clientSpawnInterval;
+            }
         }
-
         _pedestrianTimer -= Time.deltaTime;
         if (_pedestrianTimer <= 0f)
         {
             SpawnPedestrianBlob();
             _pedestrianTimer = Random.Range(pedSpawnIntervalMin, pedSpawnIntervalMax);
         }
-
         _sneakyTimer -= Time.deltaTime;
         if (_sneakyTimer <= 0f)
         {
@@ -109,6 +126,7 @@ public class ClientManager : MonoBehaviour
             client.BeginJourney();
         }
         clients.Add(clientObj);
+        _nightClients--;
     }
 
     private void SpawnPedestrianBlob()
@@ -139,5 +157,12 @@ public class ClientManager : MonoBehaviour
 
         Instantiate(sneakyClientPrefab, sneakySpawnPoints.position, sneakySpawnPoints.rotation);
         Debug.Log("[ClientManager] A sneaky client has appeared!");
+    }
+
+    public void OnClientReachedDestination()
+    {
+        _remaningClients--;
+        if(_remaningClients <= 0)
+            OnNightEnds?.Invoke();
     }
 }

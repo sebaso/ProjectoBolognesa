@@ -88,7 +88,10 @@ public class Client : MonoBehaviour
             case State.Angry:
             case State.Admitted:
                 if (HasReachedDestination())
+                {
+                    ClientManager.Instance.OnClientReachedDestination();
                     Destroy(gameObject);
+                }
                 break;
         }
     }

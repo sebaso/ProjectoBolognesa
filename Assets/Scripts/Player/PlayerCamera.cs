@@ -15,10 +15,25 @@ public class PlayerCamera : MonoBehaviour
     private Transform _orientation;
     private Vector2 _lookInput;
 
+    private static PlayerCamera _instance;
+    public static PlayerCamera Instance => _instance;
+
+    private float score;
+
+    void Awake()
+    {
+        if(_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        OnDisableCursor();
     }
 
     void Update()
