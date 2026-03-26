@@ -7,18 +7,36 @@ public class GameMenuController : MonoBehaviour
     private bool _pauseGame = false;
     [SerializeField]
     private GameObject _pausePanel;
+    public bool IsPauseActive => _pauseGame;
+    private static GameMenuController _instance;
+    public static GameMenuController Instance => _instance;
+    void Awake()
+    {
+        if(_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
     public void ChangeScene( string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
-    public void OnPauseGame(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    public void OnESCPressed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             if(_pauseGame)
                 ResumeGame();
             else
-                OnPauseGame();
+            {
+                if(!HUDController.Instance.IsPanelActive)
+                    OnPauseGame();
+            }
         }
     }
 
@@ -26,12 +44,14 @@ public class GameMenuController : MonoBehaviour
     {
         Time.timeScale = 0f;
         _pausePanel.SetActive(true);
+        PlayerCamera.Instance.OnEnableCursor();
         _pauseGame = true;
     }
 
     public void ResumeGame()
     {
         Time.timeScale = 1f;
+        PlayerCamera.Instance.OnDisableCursor();
         _pausePanel.SetActive(false);
         _pauseGame = false;
     }

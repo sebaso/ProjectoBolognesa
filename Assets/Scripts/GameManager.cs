@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
             AudioManager.Instance.PitchRegular();
         }
     }
-
+    
     public bool GetInMinigame()
     {
         return _inMinigame;

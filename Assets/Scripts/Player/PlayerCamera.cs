@@ -17,10 +17,25 @@ public class PlayerCamera : MonoBehaviour
 
     private bool _cursorEnabled;
 
+    private static PlayerCamera _instance;
+    public static PlayerCamera Instance => _instance;
+
+    private float score;
+
+    void Awake()
+    {
+        if(_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        OnDisableCursor();
     }
 
     void Update()
