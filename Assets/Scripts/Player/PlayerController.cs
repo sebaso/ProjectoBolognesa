@@ -110,8 +110,7 @@ public class PlayerController : MonoBehaviour
     {
         Ray ray = new Ray(_camera.transform.position, _camera.transform.forward);
         RaycastHit hit;
-       Debug.DrawRay(_camera.transform.position, _camera.transform.forward * _interactionDistance, Color.yellow);
-       if(Physics.Raycast(ray, out hit, _interactionDistance))
+        if(Physics.Raycast(ray, out hit, _interactionDistance))
         {
             IPickeable pickeable = hit.collider.GetComponent<IPickeable>();
 
@@ -125,11 +124,21 @@ public class PlayerController : MonoBehaviour
     }
     private void DropItem()
     {
-        if (_holdingTool != null)
+        Ray ray = new Ray(_camera.transform.position, _camera.transform.forward);
+        RaycastHit hit;
+        if(Physics.Raycast(ray, out hit, _interactionDistance))
         {
-            _holdingTool.Drop();
-            _holdingTool = null;
-            OnHoldTool?.Invoke(false);
+            Debug.DrawRay(_camera.transform.position, _camera.transform.forward * _interactionDistance );
+            Debug.Log(hit.collider.gameObject.name);
+            if (hit.collider.gameObject.CompareTag("Table") || hit.collider.gameObject.CompareTag("Tool"))
+            {
+                if (_holdingTool != null)
+                {
+                    _holdingTool.Drop();
+                    _holdingTool = null;
+                    OnHoldTool?.Invoke(false);
+                }
+            }
         }
     }
     #endregion
