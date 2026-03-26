@@ -33,10 +33,6 @@ public class PlayerCamera : MonoBehaviour
             Destroy(this);
         }
     }
-    void Start()
-    {
-        OnDisableCursor();
-    }
 
     void Update()
     {
@@ -46,11 +42,9 @@ public class PlayerCamera : MonoBehaviour
                 OnEnableCursor();
             return;
         }
-        
-        if (_cursorEnabled)
-        {
+
+        if(_cursorEnabled)
             OnDisableCursor();
-        }
         
         float mouseX = _lookInput.x * Time.deltaTime * _sensX;
         float mouseY = _lookInput.y * Time.deltaTime * _sensY;

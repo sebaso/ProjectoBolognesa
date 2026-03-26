@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 8058394436828193267}
   - component: {fileID: 9202253037741384366}
   - component: {fileID: -8582941629442962838}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Cliente Sneaky
-  m_TagString: Untagged
+  m_TagString: Sneaky
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3504892837345592268}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.82773, y: 0.14145, z: 3.47839}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -48,11 +48,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   clientModels:
-  - {fileID: 5405281638771103067, guid: 8d47184f185fe289bbe666df35879901, type: 3}
-  - {fileID: 8113730677099320665, guid: 5e7d8fe2b584d434d9e76b9141f2c570, type: 3}
+  - {fileID: 6548125099362292477, guid: 6d27edb5965e0714488795755ea02887, type: 3}
+  - {fileID: 2400536372896638401, guid: b8f59ed7d3b23c844ba57527234c4679, type: 3}
+  - {fileID: 3784481727059915519, guid: 76031db233ccfb544ba542f07f54c6d3, type: 3}
+  - {fileID: 2560480201490785247, guid: 1ad4e2d12f1c1ee4baf69b7276cd7367, type: 3}
+  - {fileID: 7311260267703566458, guid: 776d62efcc484e048b27a5bc3095cf78, type: 3}
+  - {fileID: 2277816708191228993, guid: cb38cfae79d85de4c8f9c182a769fd65, type: 3}
+  - {fileID: 5144688827783418038, guid: a4b522e63aac37d41b5fd5b22c9550b8, type: 3}
+  - {fileID: 6130609824057047966, guid: 2943056f45b18214caf609ca4d48da15, type: 3}
+  - {fileID: 4846551101514435008, guid: 8436da425c00fc74eb199ef0d2728669, type: 3}
+  - {fileID: 5805663470123422566, guid: 7b601c4ad948da048aab56fbe307f0b7, type: 3}
+  - {fileID: 4276938982831030325, guid: 08663ba95ddf8794b902e18b130e05ca, type: 3}
+  - {fileID: 6414794635153368523, guid: bdf1abe138378f8419de49d3500fd985, type: 3}
+  - {fileID: 8712968301043408816, guid: 78a04d61484afb94b9dc132ba33fce53, type: 3}
+  - {fileID: 5974182004447111945, guid: b7252d528222d124dabfb9ae2de4df66, type: 3}
+  - {fileID: 5248741639382075114, guid: 2c87cf6690aeb8f4c8614a6d5d30f236, type: 3}
+  - {fileID: 2894617996723794907, guid: d3833b90b2815ee4da5cd704a8b86ecd, type: 3}
   maxPatience: 60
   eatDuration: 8
-  clientName: 
   age: 0
   hasID: 0
   sobriety: 0
@@ -80,8 +93,8 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
+  m_Height: 1.44
+  m_BaseOffset: 0.52
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!65 &9202253037741384366
@@ -103,8 +116,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.4310006, z: 1}
-  m_Center: {x: 0, y: 0.7146271, z: 0}
+  m_Size: {x: 1, y: 1.4, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &-8582941629442962838
 MonoBehaviour:
   m_ObjectHideFlags: 0
