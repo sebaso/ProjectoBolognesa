@@ -99,7 +99,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1251295724454378940}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -110,8 +110,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -643, y: -7.2750244}
-  m_SizeDelta: {x: -788.5505, y: -942.7333}
+  m_AnchoredPosition: {x: -627, y: -7.2750244}
+  m_SizeDelta: {x: -887.3707, y: -942.7333}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &412289647018954409
 MonoBehaviour:
@@ -654,6 +654,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   _resultImage: {fileID: 1743725836478316737}
+  _monsterReferences: {fileID: 0}
   _timeLimit: 10
   _hasAnomaly: 1
   _bodyCheckpoints:
@@ -704,7 +705,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5598827447320221605}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -713,8 +714,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -640.2988, y: -6.234619}
-  m_SizeDelta: {x: -679.8905, y: -953.7317}
+  m_AnchoredPosition: {x: -624.2988, y: -6.234436}
+  m_SizeDelta: {x: -778.7108, y: -953.7317}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5897382903335130273
 CanvasRenderer:
@@ -901,8 +902,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 28.99707, y: 0}
-  m_SizeDelta: {x: -333.4653, y: 0}
+  m_AnchoredPosition: {x: 24.5051, y: 0}
+  m_SizeDelta: {x: -234.645, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7615620546423370082
 CanvasRenderer:
@@ -932,7 +933,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -887776692, guid: 2e6593479546ef84582d2a13e60656a0, type: 3}
+  m_Sprite: {fileID: -260600231, guid: d46ae3d7d19609a49afe71e2b87f1aab, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
