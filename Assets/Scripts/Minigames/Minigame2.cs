@@ -25,6 +25,8 @@ public class Minigame2 : MonoBehaviour
     private RectTransform _anomaly;
     [SerializeField]
     private Image _resultImage;
+    [SerializeField]
+    private MonsterMinigame2 _monsterReferences;
     
     [Header("Minigame Settings")]
     [SerializeField]
@@ -56,7 +58,6 @@ public class Minigame2 : MonoBehaviour
 
     private void Start()
     {
-        SetObjects(_hasAnomaly);
         StartMinigame();
     }
 
@@ -99,7 +100,8 @@ public class Minigame2 : MonoBehaviour
     //Esto se llamará desde el objeto que usa el player
     public void StartMinigame()
     {
-        //_skeletonMonster.sizeDelta = new Vector2(_detectorParent.rect.width, _detectorParent.rect.height);
+        SetMonsterReferences();
+        SetObjects(_hasAnomaly);
         _isGameActive = true;
         
         _currentTime = _timeLimit;
@@ -109,6 +111,29 @@ public class Minigame2 : MonoBehaviour
         _scannedCheckpoints.Clear();
         _resultImage.gameObject.SetActive(false);
         _maskRevealer.gameObject.SetActive(true);
+    }
+
+    public void SetAnomaly(bool value)
+    {
+        _hasAnomaly = value;
+    }
+
+    private void SetMonsterReferences()
+    {
+        _monsterReferences = _minigameCanvas.GetComponentInChildren<MonsterMinigame2>();
+
+        if (_monsterReferences == null)
+        {
+            Debug.Log("No hay datos del mosntruo para los rayosX");
+            return;
+        }
+
+        _detectorParent = _monsterReferences.GetDetectorParent();
+        _maskRevealer = _monsterReferences.GetMaskRevealer();
+        _skeletonMonster = _monsterReferences.GetSkeletonMonster();
+        _anomaliesBoxes = _monsterReferences.GetAnomaliesBoxes();
+        _normalObjBoxes =  _monsterReferences.GetNormalObjBoxes();
+        _bodyCheckpoints = _monsterReferences.GetBodyCheckpoints();
     }
 
     private void ResetObjects()
