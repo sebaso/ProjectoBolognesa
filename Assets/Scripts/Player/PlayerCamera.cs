@@ -15,28 +15,29 @@ public class PlayerCamera : MonoBehaviour
     private Transform _orientation;
     private Vector2 _lookInput;
 
-    private bool _cursorEnabled;
+    private static PlayerCamera _instance;
+    public static PlayerCamera Instance => _instance;
 
+    private float score;
+
+    void Awake()
+    {
+        if(_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        OnDisableCursor();
     }
 
     void Update()
     {
-        if (GameManager.Instance.GetInMinigame())
-        {
-            if(!_cursorEnabled)
-                OnEnableCursor();
-            return;
-        }
-        
-        if (_cursorEnabled)
-        {
-            OnDisableCursor();
-        }
-        
         float mouseX = _lookInput.x * Time.deltaTime * _sensX;
         float mouseY = _lookInput.y * Time.deltaTime * _sensY;
 
@@ -56,13 +57,11 @@ public class PlayerCamera : MonoBehaviour
     }
     public void OnEnableCursor()
     {
-        _cursorEnabled = true;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
     public void OnDisableCursor()
     {
-        _cursorEnabled = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }

@@ -167,6 +167,7 @@ public class SneakyClient : MonoBehaviour
         if (_agent.hasPath && _agent.velocity.sqrMagnitude > 0.01f) return;
 
         Debug.Log(_isFleeing ? "[SneakyClient] Escaped!" : "[SneakyClient] Reached entrance!");
+        ClientManager.Instance.OnSneakySneaked();
         Destroy(gameObject);
     }
 }
