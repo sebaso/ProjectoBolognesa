@@ -81,15 +81,6 @@ AnimationClip:
       - serializedVersion: 3
         time: 1
         value: 53
-        inSlope: 211.03448
-        outSlope: 211.03448
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1.3
-        value: 1918
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -168,15 +159,6 @@ AnimationClip:
       - serializedVersion: 3
         time: 1
         value: -82
-        inSlope: -331.03452
-        outSlope: -331.03452
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1.3
-        value: -1917
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -369,15 +351,6 @@ AnimationClip:
       - serializedVersion: 3
         time: 1
         value: 53
-        inSlope: 211.03448
-        outSlope: 211.03448
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1.3
-        value: 1918
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -456,15 +429,6 @@ AnimationClip:
       - serializedVersion: 3
         time: 1
         value: -82
-        inSlope: -331.03452
-        outSlope: -331.03452
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1.3
-        value: -1917
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -521,4 +485,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 1.3333334
+    functionName: OnTryEnableEndNightPanel
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

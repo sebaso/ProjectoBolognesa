@@ -17,6 +17,9 @@ public class ClientManager : MonoBehaviour
     private int _nightClients;
     [SerializeField]
     private int _remaningClients;
+    private int _correctClientsAcepted;
+    private int _correctClientsRejected;
+
     [Header("Pedestrian Spawning")]
     public GameObject pedestrianPrefab;
     public float pedSpawnIntervalMin = 2f;
@@ -32,6 +35,8 @@ public class ClientManager : MonoBehaviour
     public float sneakySpawnInterval = 20f;
     [Range(0, 1)] public float sneakySpawnChance = 0.3f;
     private float _sneakyTimer;
+    private int _intrudersAcepted;
+
     private int _nightClientNumberMultiplier = 10;
     private int _currentNight;
 
@@ -41,7 +46,9 @@ public class ClientManager : MonoBehaviour
         public Transform[] starts;
         public Transform end;
     }
-
+    public int CorrectClientsAcepted => _correctClientsAcepted;
+    public int CorrectClientsRejected => _correctClientsRejected;
+    public int IntrudersAcepted => _intrudersAcepted;
     public static ClientManager Instance { get; private set; }
 
     void Awake()
@@ -159,10 +166,32 @@ public class ClientManager : MonoBehaviour
         Debug.Log("[ClientManager] A sneaky client has appeared!");
     }
 
-    public void OnClientReachedDestination()
+    public void OnClientAccepted(bool correct)
     {
+        if (correct)
+        {
+            _correctClientsAcepted ++;
+            CurrencyController.Instance.AddScore();
+        }
+        else
+        {
+            CurrencyController.Instance.SubtractScore();
+        }
         _remaningClients--;
         if(_remaningClients <= 0)
             OnNightEnds?.Invoke();
+    }
+    public void OnCorrectClientRejected()
+    {
+        CurrencyController.Instance.SubtractScore();
+        _correctClientsRejected ++;
+        _remaningClients--;
+        if(_remaningClients <= 0)
+            OnNightEnds?.Invoke();
+    }
+    public void OnSneakySneaked()
+    {
+        _intrudersAcepted ++;
+        CurrencyController.Instance.SubtractScore();
     }
 }

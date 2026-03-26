@@ -25,8 +25,31 @@ public class HUDController : MonoBehaviour
     private TextMeshProUGUI _numberNightTitle;
     [SerializeField]
     private TextMeshProUGUI _numberClients;
+    [Header("EndNight Panel")]
+    [SerializeField]
+    private GameObject _endNightPanel;
+    [SerializeField]
+    private TextMeshProUGUI _clientsAttend;
+    [SerializeField]
+    private TextMeshProUGUI _clientsDennied;
+    [SerializeField]
+    private TextMeshProUGUI _sneakyClients;
+    [SerializeField]
+    private TextMeshProUGUI _totalPoints;
+    [SerializeField]
+    private Image _filledStartBar;
+    [Header("FinishGame Panel")]
+    [SerializeField]
+    private GameObject _finishGamePanel;
+    [SerializeField]
+    private TextMeshProUGUI _winGameText;
+    [SerializeField]
+    private TextMeshProUGUI _looseGameText;
     private bool _isPanelActive = false;
     public bool IsPanelActive => _isPanelActive;
+    private int _currentNightNumber;
+    private int _numberClientsValue;
+    private bool _nightFinished;
     private static HUDController _instance;
     public static HUDController Instance => _instance;
     void Awake()
@@ -79,6 +102,7 @@ public class HUDController : MonoBehaviour
     public void ShowNightFinishedPanel()
     {
         _nightNumberText.text = "Finished";
+        _nightFinished = true;
         _nightPanelAnimator.SetTrigger("show");
     }
     public void OnEnableIntroPanel(int nightNumber, int numberClients)
@@ -87,8 +111,11 @@ public class HUDController : MonoBehaviour
         PlayerCamera.Instance.OnEnableCursor();
         Time.timeScale = 0f;
         _introPanel.SetActive(true);
+        _currentNightNumber = nightNumber;
+        _numberClientsValue = numberClients;
         _numberNightTitle.text = "Noche " + nightNumber.ToString();
         _numberClients.text = numberClients.ToString() + " Monstruos";
+
     }
     private void OnDisableIntroPanel()
     {
@@ -97,7 +124,34 @@ public class HUDController : MonoBehaviour
         Time.timeScale = 1f;
         _introPanel.SetActive(false);
     }
-
+    public void OnFinishNight()
+    {
+        if(!_nightFinished) return;
+        _isPanelActive = true;
+        PlayerCamera.Instance.OnEnableCursor();
+        Time.timeScale = 0f;
+        _endNightPanel.SetActive(true);
+        int totalPoints = CurrencyController.Instance.TotalScore;
+        int maxPoints = CurrencyController.Instance.MaxScore;
+        _clientsAttend.text = ClientManager.Instance.CorrectClientsAcepted.ToString();
+        _clientsDennied.text = ClientManager.Instance.CorrectClientsRejected.ToString();
+        _sneakyClients.text = ClientManager.Instance.IntrudersAcepted.ToString();
+        _totalPoints.text = totalPoints.ToString();
+        float starsAmmount = totalPoints / maxPoints;
+        starsAmmount = Mathf.Clamp(starsAmmount, 0f, 1f);
+        _filledStartBar.fillAmount = starsAmmount;
+    }
+    public void OnNextNight()
+    {
+        _isPanelActive = false;
+        _nightFinished = false;
+        PlayerCamera.Instance.OnDisableCursor();
+        Time.timeScale = 1f;
+        _endNightPanel.SetActive(false);
+        int nextNightNumber = _currentNightNumber + 1;
+        int nextNumberClients = nextNightNumber * 10;
+        OnEnableIntroPanel(nextNightNumber, nextNumberClients);
+    }
     public void OnStartNewNight()
     {
         OnDisableIntroPanel();

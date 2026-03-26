@@ -5,7 +5,20 @@ public class CurrencyController : MonoBehaviour
     private static CurrencyController _instance;
     public static CurrencyController Instance => _instance;
 
-    private float score;
+    [SerializeField]
+    private int _startedScore = 500;
+    [SerializeField]
+    private int _totalScore = 0;
+    [SerializeField]
+    private int _successScore = 17;
+    [SerializeField]
+    private int _failScore = 25;
+    [SerializeField]
+    private int _maxScore = 1000;
+    [SerializeField]
+    private int _minScore = 0;
+    public int TotalScore => _totalScore;
+    public int MaxScore => _maxScore;
 
     void Awake()
     {
@@ -20,18 +33,24 @@ public class CurrencyController : MonoBehaviour
 
         if (!PlayerPrefs.HasKey("Score"))
         {
-            PlayerPrefs.SetFloat("Score", 300f);
+            PlayerPrefs.SetInt("Score", _startedScore);
+            _totalScore = _startedScore;
             PlayerPrefs.Save();
         }
     }
-    public void AddScore(float amount)
+    public void AddScore()
     {
-        score += amount;
+        _totalScore += _successScore;
+        SaveScore();
+    }
+    public void SubtractScore()
+    {
+        _totalScore -= _failScore;
+        SaveScore();
     }
     public void SaveScore()
     {
-        PlayerPrefs.SetFloat("Score", score);
-        PlayerPrefs.Save();
+        _totalScore = Mathf.Clamp(_totalScore, _minScore, _maxScore);
+        PlayerPrefs.SetFloat("Score", _totalScore);
     }
-    public float GetScore(){ return score; }
 }
