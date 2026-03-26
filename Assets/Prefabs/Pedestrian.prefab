@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3793926184591141225}
   - component: {fileID: 3055432351267042116}
   - component: {fileID: -79559640235312435}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pedestrian
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,6 +52,7 @@ MonoBehaviour:
   - {fileID: 8113730677099320665, guid: 5e7d8fe2b584d434d9e76b9141f2c570, type: 3}
   maxPatience: 60
   eatDuration: 8
+  clientName: 
   age: 0
   hasID: 0
   sobriety: 0

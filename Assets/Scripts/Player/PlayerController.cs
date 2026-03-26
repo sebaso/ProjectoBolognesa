@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     [Header("Player controlers")]
     private Vector2 _lookInput;
     private bool _usingGamepad;
-    [Header("Aiming")] 
+    [Header("Aiming")]
     [SerializeField]
     private float _interactionDistance = 3f;
     [SerializeField]
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     public void OnLook(InputAction.CallbackContext context)
     {
         _lookInput = context.ReadValue<Vector2>();
-        if(_lookInput.magnitude < 0.5f) 
+        if (_lookInput.magnitude < 0.5f)
             _lookInput = Vector2.zero;
         _camera.GetComponent<PlayerCamera>().SetLookInput(_lookInput);
         _usingGamepad = context.control.device is Gamepad;
@@ -69,36 +69,8 @@ public class PlayerController : MonoBehaviour
         if (context.started)
         {
             if (_holdingTool != null)
-            {
-                //TODO: comprobar si se está soltando en la mesa o no (si no se está en la mesa no se suelta)
-                //if(mesa)
-                //DropItem();
-                //else
-                switch (CheckHoldedTool())
-                {
-                    case 1:
-                        GameManager.Instance.StartMinigame1();
-                        break;
-                    case 2:
-                        GameManager.Instance.StartMinigame2();
-                        break;
-                    case 3:
-                        GameManager.Instance.StartMinigame3();
-                        break;
-                    case 4:
-                        //TODO: interactuar con la pistola
-                        break;
-                    case 5:
-                        //TODO: interactuar con la escoba
-                        break;
-                    default:
-                        //No hacemos nada
-                        break;
-                }
-            }
+                DropItem();
             TryInteract();
-            
-            //TODO: Detectar qué objeto tiene
         }
     }
 
@@ -120,9 +92,9 @@ public class PlayerController : MonoBehaviour
         // Actualizamos el estado de _grounded según el buffer
         _grounded = colliderBuffer[0] != null;
     }
-    void OnDrawGizmos() 
+    void OnDrawGizmos()
     {
-        if(!showGizmos) return;
+        if (!showGizmos) return;
         // Cambiamos el color del Gizmo
         Gizmos.color = Color.blue;
         // Mostramos el Gizmo del check de colisión frontal
@@ -134,29 +106,16 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireCube(_groundCheckPoint.position, _groundCheckSize);
     }
 
-    private int CheckHoldedTool()
-    {
-        //TODO: comprobar el tipo de herramienta
-        //Según el tipo devuelve:
-        //1: alcoholimetro
-        //2: rayosx
-        //3: lector pupila
-        //4: pistola
-        //5: escoba
-
-        return 1;
-    }
-
     private void TryInteract()
     {
         Ray ray = new Ray(_camera.transform.position, _camera.transform.forward);
         RaycastHit hit;
-       Debug.DrawRay(_camera.transform.position, _camera.transform.forward * _interactionDistance, Color.yellow);
-       if(Physics.Raycast(ray, out hit, _interactionDistance))
+        Debug.DrawRay(_camera.transform.position, _camera.transform.forward * _interactionDistance, Color.yellow);
+        if (Physics.Raycast(ray, out hit, _interactionDistance))
         {
             IPickeable pickeable = hit.collider.GetComponent<IPickeable>();
 
-            if(pickeable != null)
+            if (pickeable != null)
             {
                 _holdingTool = pickeable;
                 pickeable.Pick(_holdingPoint);

@@ -12,14 +12,14 @@ public class Pickeable : MonoBehaviour, IPickeable
         _originalPos = transform.position;
         _originalRotation = transform.localRotation;
     }
-    public void Pick(Transform holdPoint)
+    public virtual void Pick(Transform holdPoint)
     {
         transform.SetParent(holdPoint);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.Euler(_holdRotationOffset);
     }
 
-    public void Drop()
+    public virtual void Drop()
     {
         transform.SetParent(null);
         transform.position = _originalPos;

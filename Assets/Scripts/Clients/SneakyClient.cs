@@ -50,8 +50,6 @@ public class SneakyClient : MonoBehaviour
         }
     }
 
-    // ─── States ──────────────────────────────────────────────────────────────
-
     private void UpdateSneaking()
     {
         bool isSeen = IsInView();
@@ -159,7 +157,18 @@ public class SneakyClient : MonoBehaviour
 
         return true;
     }
+    public void OnHit()
+    {
+        Debug.Log("[SneakyClient] Ouch! I've been hit!");
+        _agent.enabled = false;
 
+        gameObject.AddComponent<Rigidbody>();
+        gameObject.AddComponent<SphereCollider>();
+        gameObject.GetComponent<SphereCollider>().radius = 0.5f;
+        gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 10f, ForceMode.Impulse);
+        gameObject.GetComponent<Rigidbody>().AddForce(Vector3.forward * 10f, ForceMode.Impulse);
+        Destroy(gameObject, 5f);
+    }
     private void CheckReachedDestination()
     {
         if (_agent.pathPending) return;
