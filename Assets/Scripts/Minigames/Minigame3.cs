@@ -17,6 +17,8 @@ public class Minigame3 : MonoBehaviour
     private Slider _progressBar;
     [SerializeField]
     private Canvas _MinigameCanvas;
+    [SerializeField]
+    private MonsterMinigame3 _monsterReferences;
     
     [Header("Eye Settings")]
     [SerializeField]
@@ -82,8 +84,22 @@ public class Minigame3 : MonoBehaviour
         _drugState =  state;
     }
 
+    public void SetMonsterReferences()
+    {
+        _monsterReferences = _MinigameCanvas.GetComponentInChildren<MonsterMinigame3>();
+
+        if (_monsterReferences == null)
+        {
+            Debug.Log("No hay datos del onstruo para el escaner de retina");
+            return;
+        }
+
+        _backgroundArea = _monsterReferences.GetBackGroundArea();
+        _pupil =  _monsterReferences.GetPupil();
+    }
     public void StartMinigame()
     {
+        SetMonsterReferences();
         _resultImage.gameObject.SetActive(false);
         _hudMinigameCanvas.SetActive(true);
         _noiseSeedX = Random.Range(0f, 100f);
