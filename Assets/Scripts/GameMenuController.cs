@@ -7,6 +7,21 @@ public class GameMenuController : MonoBehaviour
     private bool _pauseGame = false;
     [SerializeField]
     private GameObject _pausePanel;
+    public bool IsPauseActive => _pauseGame;
+    private static GameMenuController _instance;
+    public static GameMenuController Instance => _instance;
+    void Awake()
+    {
+        if(_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
     public void ChangeScene( string sceneName)
     {
         SceneManager.LoadScene(sceneName);
