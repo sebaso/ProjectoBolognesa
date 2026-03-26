@@ -6402,6 +6402,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ffe30f5077d9447893eec3cf2d0cac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  _minigame1: {fileID: 0}
+  _minigame2: {fileID: 0}
 --- !u!4 &1059583029
 Transform:
   m_ObjectHideFlags: 0
@@ -8782,6 +8784,8 @@ MonoBehaviour:
   queuePoint: {fileID: 1713191577}
   clientSpawnInterval: 10
   maxClients: 10
+  minClientSpeed: 3
+  maxClientSpeed: 5
   clients: []
   _nightClients: 0
   _remaningClients: 0
@@ -8790,6 +8794,8 @@ MonoBehaviour:
   pedSpawnIntervalMax: 8
   minBlobSize: 1
   maxBlobSize: 4
+  minPedSpeed: 2.5
+  maxPedSpeed: 4.5
   pedestrianRoutes:
   - starts:
     - {fileID: 1156700576}

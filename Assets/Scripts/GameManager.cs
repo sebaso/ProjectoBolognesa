@@ -64,4 +64,6 @@ public class GameManager : MonoBehaviour
         _inMinigame = true;
         //TODO: llamar a minigame3
     }
+
+    //TODO: DESABILITAR CURSOR CON PLAYERCAMERA.INSTANCE.ONDISABLE() AL SALIR DEL MINIJUEGO
 }

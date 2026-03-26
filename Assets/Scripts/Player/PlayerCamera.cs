@@ -41,10 +41,7 @@ public class PlayerCamera : MonoBehaviour
             if(!_cursorEnabled)
                 OnEnableCursor();
             return;
-        }
-
-        if(_cursorEnabled)
-            OnDisableCursor();
+        }   
         
         float mouseX = _lookInput.x * Time.deltaTime * _sensX;
         float mouseY = _lookInput.y * Time.deltaTime * _sensY;
