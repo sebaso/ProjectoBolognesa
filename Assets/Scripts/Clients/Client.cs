@@ -23,6 +23,7 @@ public class Client : MonoBehaviour
     public State CurrentState { get; private set; } = State.Waiting;
     public float maxPatience = 60f;
     public float eatDuration = 8f;
+    public string clientName;
     public int age;
     public bool hasID;
     public float sobriety;
@@ -40,6 +41,9 @@ public class Client : MonoBehaviour
     private Vector3 _queueSlotPosition;
     private Quaternion _targetRotation;
     private bool Initialized = false;
+    private bool _hasNotifiedArrival = false;
+
+    public event System.Action OnReachedInspection;
 
     public float PatienceRatio => _patience / maxPatience;
 
@@ -90,6 +94,24 @@ public class Client : MonoBehaviour
                 if (HasReachedDestination())
                     Destroy(gameObject);
                 break;
+
+            case State.Inspecting:
+                if (HasReachedDestination())
+                {
+                    Freeze();
+                    if (QueueManager.Instance != null && QueueManager.Instance.inspectionPoint != null)
+                    {
+                        transform.rotation = Quaternion.Slerp(transform.rotation, QueueManager.Instance.inspectionPoint.rotation, Time.deltaTime * 5f);
+                    }
+
+                    if (!_hasNotifiedArrival)
+                    {
+                        _hasNotifiedArrival = true;
+                        OnReachedInspection?.Invoke();
+                        Debug.Log($"[Client] {gameObject.name} arrived at inspection point.");
+                    }
+                }
+                break;
         }
     }
 
@@ -111,12 +133,20 @@ public class Client : MonoBehaviour
         selectedModel.transform.position = selectedModel.transform.position + new Vector3(0, -0.5f, 0);
 
         age = Random.Range(15, 45);
+        clientName = GetRandomName();
         hasID = Random.value > 0.1f; // 90% tiene ID
         sobriety = Random.Range(0.0f, 1.0f);
         pupils = Random.Range(0, 1);
         hasIllegalItems = Random.value > 0.9f;
         string[] styles = { "Casual", "Formal", "Deportivo" };
         dressCode = styles[Random.Range(0, styles.Length)];
+    }
+
+    private string GetRandomName()
+    {
+        string[] names = { "Juan", "Maria", "Pedro", "Lucia", "Carlos", "Elena", "Miguel", "Sofia", "Diego", "Paula" };
+        string[] lastNames = { "Garcia", "Rodriguez", "Lopez", "Martinez", "Sanchez", "Perez", "Gomez", "Martin", "Jimenez", "Ruiz" };
+        return names[Random.Range(0, names.Length)] + " " + lastNames[Random.Range(0, lastNames.Length)];
     }
 
     public void BeginJourney()
@@ -280,6 +310,29 @@ public class Client : MonoBehaviour
             _agent.isStopped = false;
             _agent.SetDestination(destination);
         }
+    }
+
+    public void SetSpeed(float speed)
+    {
+        if (_agent == null) _agent = GetComponent<NavMeshAgent>();
+        _agent.speed = speed;
+    }
+
+    public void OnHit()
+    {
+        Debug.Log($"[Client] {gameObject.name} has been hit!");
+        if (_agent != null) _agent.enabled = false;
+
+        Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+        if (rb == null) rb = gameObject.AddComponent<Rigidbody>();
+        
+        SphereCollider sc = gameObject.GetComponent<SphereCollider>();
+        if (sc == null) sc = gameObject.AddComponent<SphereCollider>();
+        sc.radius = 0.5f;
+
+        rb.AddForce(Vector3.up * 10f, ForceMode.Impulse);
+        rb.AddForce(Vector3.forward * 10f, ForceMode.Impulse);
+        Destroy(gameObject, 5f);
     }
     //para que no se mueva como idiota
     private void Freeze()

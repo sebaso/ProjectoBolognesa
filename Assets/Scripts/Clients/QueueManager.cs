@@ -30,6 +30,7 @@ public class QueueManager : MonoBehaviour
 
     public int WaitingCount => _waitingClients.Count;
     public bool IsQueueFull => _waitingClients.Count >= maxQueueSize;
+    public Client CurrentInspectingClient => (_waitingClients.Count > 0) ? _waitingClients[0] : null;
 
     public void AddClient(Client client)
     {

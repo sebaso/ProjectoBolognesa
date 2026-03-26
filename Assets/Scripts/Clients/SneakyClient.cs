@@ -22,11 +22,13 @@ public class SneakyClient : MonoBehaviour
     private float _cooldownTimer = 0f;
     private bool _wasSeenLastFrame = false;
     private Transform _entrancePoint;
+    private Vector3 _spawnPos;
 
     void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
         _agent.speed = slowSpeed;
+        _spawnPos = transform.position;
     }
 
     void Start()
@@ -47,8 +49,6 @@ public class SneakyClient : MonoBehaviour
             case SneakyState.Reacted: CheckReachedDestination(); break;
         }
     }
-
-    // ─── States ──────────────────────────────────────────────────────────────
 
     private void UpdateSneaking()
     {
@@ -81,6 +81,7 @@ public class SneakyClient : MonoBehaviour
         }
 
         _wasSeenLastFrame = isSeen;
+        CheckReachedDestination();
     }
 
     private void UpdateDissimulating()
@@ -104,6 +105,7 @@ public class SneakyClient : MonoBehaviour
                 _agent.SetDestination(_entrancePoint.position);
             Debug.Log("[SneakyClient] Resuming sneaking...");
         }
+        CheckReachedDestination();
     }
     private void React()
     {
@@ -121,17 +123,12 @@ public class SneakyClient : MonoBehaviour
         _isFleeing = true;
         _agent.speed = fastSpeed;
 
-        Vector3 fleeDir = _entrancePoint != null
-            ? (transform.position - _entrancePoint.position).normalized
-            : -transform.forward;
-        Vector3 fleePos = transform.position + fleeDir * fleeDistance;
-
-        if (NavMesh.SamplePosition(fleePos, out NavMeshHit hit, 5f, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(_spawnPos, out NavMeshHit hit, 5f, NavMesh.AllAreas))
             _agent.SetDestination(hit.position);
         else
-            _agent.SetDestination(fleePos);
+            _agent.SetDestination(_spawnPos);
 
-        Debug.Log("[SneakyClient] PANIC! Fleeing...");
+        Debug.Log("[SneakyClient] PANIC! Fleeing to spawn...");
     }
 
     private void StartRunningForIt()
@@ -160,7 +157,18 @@ public class SneakyClient : MonoBehaviour
 
         return true;
     }
+    public void OnHit()
+    {
+        Debug.Log("[SneakyClient] Ouch! I've been hit!");
+        _agent.enabled = false;
 
+        gameObject.AddComponent<Rigidbody>();
+        gameObject.AddComponent<SphereCollider>();
+        gameObject.GetComponent<SphereCollider>().radius = 0.5f;
+        gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 10f, ForceMode.Impulse);
+        gameObject.GetComponent<Rigidbody>().AddForce(Vector3.forward * 10f, ForceMode.Impulse);
+        Destroy(gameObject, 5f);
+    }
     private void CheckReachedDestination()
     {
         if (_agent.pathPending) return;
