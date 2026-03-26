@@ -14,6 +14,8 @@ public class Minigame1 : MonoBehaviour
     private Animator _keyAnimator;
     [SerializeField]
     private GameObject _failObj;
+    [SerializeField]
+    private GameObject _exitButton;
     
     [Header("Minigame Settings")]
     [SerializeField]
@@ -53,7 +55,7 @@ public class Minigame1 : MonoBehaviour
         _timeRemaining = _timeLimit;
         _failObj.SetActive(false);
         SetWinState(3);
-        StartMinigame();
+        //StartMinigame();
     }
 
     private void Update()
@@ -73,6 +75,8 @@ public class Minigame1 : MonoBehaviour
 
         if (_hasStarted && _inGame)
         {
+            if(_exitButton.activeInHierarchy)
+                _exitButton.SetActive(false);
             ApplyGameRules();
             RotateArrow();
         }
@@ -105,7 +109,7 @@ public class Minigame1 : MonoBehaviour
     public void StartMinigame()
     {
         Debug.Log("Starting Minigame");
-        Activate(true);
+        //Activate(true);
         _timeRemaining = _timeLimit;
         _hudMinigameCanvas.SetActive(true);
         _keyAnimator.Play("Spamming");
@@ -145,6 +149,7 @@ public class Minigame1 : MonoBehaviour
         _keyAnimator.gameObject.SetActive(false);
         
         _inGame = false;
+        _exitButton.SetActive(true);
     }
 
     private void Lose()
@@ -157,12 +162,10 @@ public class Minigame1 : MonoBehaviour
         _failObj.SetActive(true);
         
         _inGame = false;
+        _exitButton.SetActive(true);
+
     }
     
-    //TODO: Al pulsar E por primera vez inicia el giro de la flecha
-    //TODO: Cada vez que pulsas E aumenta en 0.5 la velocidad pero si no la pulsas decrementa en 0.25
-    //TODO: tienes un tiempo límite para llegar a 10 si no llegas pierdes
-    //Si pierdes sale interrogación y no sabes el resultado y no puedes repetir???
 
     public void StopMinigame()
     {
@@ -170,6 +173,8 @@ public class Minigame1 : MonoBehaviour
         _keyAnimator.Play("Idle");
         _hudMinigameCanvas.SetActive(false);
         _failObj.SetActive(false);
-        Activate(false);
+        //Activate(false);
+        _hasStarted = false;
+        GameManager.Instance.SetInMinigame(false);
     }
 }

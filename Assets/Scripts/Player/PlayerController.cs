@@ -69,8 +69,36 @@ public class PlayerController : MonoBehaviour
         if (context.started)
         {
             if (_holdingTool != null)
-                DropItem();
+            {
+                //TODO: comprobar si se está soltando en la mesa o no (si no se está en la mesa no se suelta)
+                //if(mesa)
+                //DropItem();
+                //else
+                switch (CheckHoldedTool())
+                {
+                    case 1:
+                        GameManager.Instance.StartMinigame1();
+                        break;
+                    case 2:
+                        GameManager.Instance.StartMinigame2();
+                        break;
+                    case 3:
+                        GameManager.Instance.StartMinigame3();
+                        break;
+                    case 4:
+                        //TODO: interactuar con la pistola
+                        break;
+                    case 5:
+                        //TODO: interactuar con la escoba
+                        break;
+                    default:
+                        //No hacemos nada
+                        break;
+                }
+            }
             TryInteract();
+            
+            //TODO: Detectar qué objeto tiene
         }
     }
 
@@ -104,6 +132,19 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.red;
         // Mostramos el Gizmo del ground check pintando un cubo
         Gizmos.DrawWireCube(_groundCheckPoint.position, _groundCheckSize);
+    }
+
+    private int CheckHoldedTool()
+    {
+        //TODO: comprobar el tipo de herramienta
+        //Según el tipo devuelve:
+        //1: alcoholimetro
+        //2: rayosx
+        //3: lector pupila
+        //4: pistola
+        //5: escoba
+
+        return 1;
     }
 
     private void TryInteract()
