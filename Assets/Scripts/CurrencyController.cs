@@ -31,12 +31,8 @@ public class CurrencyController : MonoBehaviour
             Destroy(this);
         }
 
-        if (!PlayerPrefs.HasKey("Score"))
-        {
-            PlayerPrefs.SetInt("Score", _startedScore);
-            _totalScore = _startedScore;
-            PlayerPrefs.Save();
-        }
+        PlayerPrefs.SetInt("Score", _startedScore);
+        _totalScore = _startedScore;
     }
     public void AddScore()
     {

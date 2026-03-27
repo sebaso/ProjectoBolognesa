@@ -91,6 +91,9 @@ public class ClientManager : MonoBehaviour
         _currentNight++;
         _clientsToSpawn = _currentNight * _nightClientNumberMultiplier;
         _clientsToProcess = _clientsToSpawn;
+        _intrudersAcepted = 0;
+        _correctClientsAcepted = 0;
+        _correctClientsRejected = 0;
         _clientTimer = 0f;
         OnNightStart?.Invoke(_currentNight);
     }

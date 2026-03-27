@@ -9023,9 +9023,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1437809612}
     - target: {fileID: 6291331708076758516, guid: a1bce07031b586b4ea848d754028ce20, type: 3}
+      propertyPath: _winGameText
+      value: 
+      objectReference: {fileID: 2071622609}
+    - target: {fileID: 6291331708076758516, guid: a1bce07031b586b4ea848d754028ce20, type: 3}
       propertyPath: _clientManager
       value: 
       objectReference: {fileID: 1501197160}
+    - target: {fileID: 6291331708076758516, guid: a1bce07031b586b4ea848d754028ce20, type: 3}
+      propertyPath: _looseGameText
+      value: 
+      objectReference: {fileID: 2071622608}
     - target: {fileID: 6291331708076758516, guid: a1bce07031b586b4ea848d754028ce20, type: 3}
       propertyPath: _nextNightButton
       value: 
@@ -9081,6 +9089,16 @@ PrefabInstance:
 --- !u!224 &2071622607 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3803607380406125169, guid: a1bce07031b586b4ea848d754028ce20, type: 3}
+  m_PrefabInstance: {fileID: 2071622606}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2071622608 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2944334401600627638, guid: a1bce07031b586b4ea848d754028ce20, type: 3}
+  m_PrefabInstance: {fileID: 2071622606}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2071622609 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8491774788954706337, guid: a1bce07031b586b4ea848d754028ce20, type: 3}
   m_PrefabInstance: {fileID: 2071622606}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2083487353

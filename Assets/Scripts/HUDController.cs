@@ -50,9 +50,9 @@ public class HUDController : MonoBehaviour
     [SerializeField]
     private GameObject _finishGamePanel;
     [SerializeField]
-    private TextMeshProUGUI _winGameText;
+    private GameObject _winGameText;
     [SerializeField]
-    private TextMeshProUGUI _looseGameText;
+    private GameObject _looseGameText;
     private bool _isPanelActive = false;
     public bool IsPanelActive => _isPanelActive;
     private int _currentNightNumber;
@@ -95,9 +95,7 @@ public class HUDController : MonoBehaviour
     private void calculateTextsUI()
     {
         _monstruosFaltantesValue.text =  ClientManager.Instance.ClientsToProcess.ToString();
-        int puntos = CurrencyController.Instance.TotalScore + 500;
-        puntos = Mathf.Clamp(puntos, 0, CurrencyController.Instance.MaxScore);
-        _puntosTotalesValue.text = (puntos).ToString();
+        _puntosTotalesValue.text = Mathf.Clamp(CurrencyController.Instance.TotalScore, 0, CurrencyController.Instance.MaxScore).ToString();
     }
     private void UpdateCrossHair(bool grabTool)
     {
@@ -179,7 +177,7 @@ public class HUDController : MonoBehaviour
         Time.timeScale = 1f;
         _endNightPanel.SetActive(false);
         int nextNightNumber = _currentNightNumber + 1;
-        int nextNumberClients = nextNightNumber * 10;
+        int nextNumberClients = nextNightNumber * 5;
         OnEnableIntroPanel(nextNightNumber, nextNumberClients);
     }
     public void OnFinishGameFinal()
@@ -192,13 +190,13 @@ public class HUDController : MonoBehaviour
         starsAmmount = Mathf.Clamp01(starsAmmount);
         if(starsAmmount == 1)
         {
-            _winGameText.enabled = true;
-            _looseGameText.enabled = false;
+            _winGameText.SetActive(true);
+            _looseGameText.SetActive(false);
         }
         else
         {
-            _winGameText.enabled = false;
-            _looseGameText.enabled = true;
+            _winGameText.SetActive(false);
+            _looseGameText.SetActive(true);
         }
     }
     public void OnStartNewNight()
