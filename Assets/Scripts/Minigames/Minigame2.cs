@@ -177,8 +177,12 @@ public class Minigame2 : MonoBehaviour
 
     private void ResetMinigame()
     {
+
+        foreach(Transform child in _monsterParent.transform)
+            Destroy(child.gameObject);
+
         if(_actualMonsterPrefab != null)
-            Destroy(_actualMonsterPrefab);
+            Destroy(_actualMonsterPrefab.gameObject);
     }
 
     public void SetObjects(bool hasAnomaly)

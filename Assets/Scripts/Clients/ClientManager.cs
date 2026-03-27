@@ -9,18 +9,19 @@ public class ClientManager : MonoBehaviour
     public GameObject clientPrefab;
     public Transform[] spawnPoints;
     public Transform queuePoint;
-    public float clientSpawnInterval = 10f;
+    public float clientSpawnInterval = 5f;
     public float minClientSpeed = 3f;
     public float maxClientSpeed = 5f;
     public List<GameObject> clients;
     private float _clientTimer;
+
     [SerializeField]
-    private int _nightClients;
+    private int _clientsToSpawn;
     [SerializeField]
-    private int _remaningClients;
+    private int _clientsToProcess;
+    public int ClientsToProcess => _clientsToProcess;
     private int _correctClientsAcepted;
     private int _correctClientsRejected;
-
     [Header("Pedestrian Spawning")]
     public GameObject pedestrianPrefab;
     public float pedSpawnIntervalMin = 2f;
@@ -39,8 +40,8 @@ public class ClientManager : MonoBehaviour
     [Range(0, 1)] public float sneakySpawnChance = 0.3f;
     private float _sneakyTimer;
     private int _intrudersAcepted;
-
-    private int _nightClientNumberMultiplier = 10;
+    [SerializeField]
+    private int _nightClientNumberMultiplier = 5;
     private int _currentNight;
     private int _nextClients;
 
@@ -88,14 +89,14 @@ public class ClientManager : MonoBehaviour
     public void StartNewNight()
     {
         _currentNight++;
-        _nightClients = _currentNight * _nightClientNumberMultiplier;
-        _remaningClients = _nightClients;
+        _clientsToSpawn = _currentNight * _nightClientNumberMultiplier;
+        _clientsToProcess = _clientsToSpawn;
         _clientTimer = 0f;
         OnNightStart?.Invoke(_currentNight);
     }
     void Update()
     {
-        if (_nightClients > 0)
+        if (_clientsToSpawn > 0)
         {
             _clientTimer -= Time.deltaTime;
             if (_clientTimer <= 0f)
@@ -124,7 +125,6 @@ public class ClientManager : MonoBehaviour
     private void TrySpawnClient()
     {
         if (QueueManager.Instance != null && QueueManager.Instance.IsQueueFull) return;
-        if (clients.Count > _nextClients) return;
 
         SpawnClient();
     }
@@ -147,7 +147,7 @@ public class ClientManager : MonoBehaviour
             client.BeginJourney();
         }
         clients.Add(clientObj);
-        _nightClients--;
+        _clientsToSpawn--;
     }
 
     private void SpawnPedestrianBlob()
@@ -194,18 +194,26 @@ public class ClientManager : MonoBehaviour
             CurrencyController.Instance.SubtractScore();
             PlaySound(incorrectSFX);
         }
-        _remaningClients--;
-        if (_remaningClients <= 0)
+        _clientsToProcess--;
+        if (_clientsToProcess <= 0)
             OnNightEnds?.Invoke();
     }
 
-    public void OnCorrectClientRejected()
+    public void OnClientRejected(bool clientCorrect)
     {
-        CurrencyController.Instance.SubtractScore();
-        _correctClientsRejected++;
-        _remaningClients--;
-        PlaySound(rejectSFX);
-        if (_remaningClients <= 0)
+        if (clientCorrect)
+        {
+             _correctClientsRejected++;
+            CurrencyController.Instance.SubtractScore();
+            PlaySound(incorrectSFX);
+        }
+        else
+        {
+            PlaySound(acceptSFX);
+        }
+        _clientsToProcess--;
+        //PlaySound(rejectSFX);
+        if (_clientsToProcess <= 0)
             OnNightEnds?.Invoke();
     }
 

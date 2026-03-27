@@ -311,6 +311,10 @@ public class Client : MonoBehaviour
             {
                 ClientManager.Instance.OnClientAccepted(true);
             }
+            else
+            {
+                ClientManager.Instance.OnClientAccepted(false);
+            }
             WalkTo(QueueManager.Instance.entrancePoint.position);
         }
         else
@@ -324,7 +328,11 @@ public class Client : MonoBehaviour
         SetState(State.Angry);
         if (CheckParameters())
         {
-            ClientManager.Instance.OnCorrectClientRejected();
+            ClientManager.Instance.OnClientRejected(true);
+        }
+        else
+        {
+           ClientManager.Instance.OnClientRejected(false); 
         }
         WalkToExit();
         Debug.Log("[Client] Rejected! Leaving angry.");

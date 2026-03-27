@@ -138,9 +138,13 @@ public class Minigame3 : MonoBehaviour
 
     private void ResetMinigame()
     {
-        Debug.Log("ResetMinigame");
+        foreach(Transform child in _monsterParent.transform)
+            Destroy(child.gameObject);
+
+        //Debug.Log("ResetMinigame");
+
         if(_actualMonsterPrefab != null)
-            Destroy(_actualMonsterPrefab);
+            Destroy(_actualMonsterPrefab.gameObject);
     }
 
     private void MoveScannerToMouse()

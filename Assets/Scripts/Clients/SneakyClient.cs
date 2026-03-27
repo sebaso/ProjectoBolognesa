@@ -84,8 +84,10 @@ public class SneakyClient : MonoBehaviour
 
     private void UpdateDissimulating()
     {
+        if(_agent == false) return;
         if (IsInView())
         {
+            if(_agent == false) return;
             _agent.isStopped = true;
             _agent.velocity = Vector3.zero;
             _cooldownTimer = dissimulationCooldown;

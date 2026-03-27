@@ -38,6 +38,14 @@ public class HUDController : MonoBehaviour
     private TextMeshProUGUI _totalPoints;
     [SerializeField]
     private Image _filledStartBar;
+    [SerializeField]
+    private GameObject _nextNightButton;
+    [SerializeField]
+    private GameObject _finishGameButton;
+    [SerializeField]
+    private TextMeshProUGUI _monstruosFaltantesValue;
+    [SerializeField]
+    private TextMeshProUGUI _puntosTotalesValue;
     [Header("FinishGame Panel")]
     [SerializeField]
     private GameObject _finishGamePanel;
@@ -67,6 +75,10 @@ public class HUDController : MonoBehaviour
     {
         _crossHairOpen.gameObject.SetActive(true);
     }
+    void Update()
+    {
+        calculateTextsUI();
+    }
     void OnEnable()
     {
         _player.OnHoldTool += UpdateCrossHair;
@@ -79,6 +91,13 @@ public class HUDController : MonoBehaviour
         _player.OnHoldTool -= UpdateCrossHair;
         _clientManager.OnNightStart -= ShowStartNightPanel;
         _clientManager.OnNightEnds -= ShowNightFinishedPanel;
+    }
+    private void calculateTextsUI()
+    {
+        _monstruosFaltantesValue.text =  ClientManager.Instance.ClientsToProcess.ToString();
+        int puntos = CurrencyController.Instance.TotalScore + 500;
+        puntos = Mathf.Clamp(puntos, 0, CurrencyController.Instance.MaxScore);
+        _puntosTotalesValue.text = (puntos).ToString();
     }
     private void UpdateCrossHair(bool grabTool)
     {
@@ -140,7 +159,18 @@ public class HUDController : MonoBehaviour
         float starsAmmount = maxPoints > 0 ? (float)totalPoints / maxPoints : 0f;
         starsAmmount = Mathf.Clamp01(starsAmmount);
         _filledStartBar.fillAmount = starsAmmount;
+        if(starsAmmount == 1 || starsAmmount == 0)
+        {
+            _nextNightButton.SetActive(false);
+            _finishGameButton.SetActive(true);
+        }
+        else
+        {
+            _nextNightButton.SetActive(true);
+            _finishGameButton.SetActive(false);
+        }
     }
+
     public void OnNextNight()
     {
         _isPanelActive = false;
@@ -151,6 +181,25 @@ public class HUDController : MonoBehaviour
         int nextNightNumber = _currentNightNumber + 1;
         int nextNumberClients = nextNightNumber * 10;
         OnEnableIntroPanel(nextNightNumber, nextNumberClients);
+    }
+    public void OnFinishGameFinal()
+    {
+        _endNightPanel.SetActive(false);
+        _finishGamePanel.SetActive(true);
+        int totalPoints = CurrencyController.Instance.TotalScore;
+        int maxPoints = CurrencyController.Instance.MaxScore;
+        float starsAmmount = maxPoints > 0 ? (float)totalPoints / maxPoints : 0f;
+        starsAmmount = Mathf.Clamp01(starsAmmount);
+        if(starsAmmount == 1)
+        {
+            _winGameText.enabled = true;
+            _looseGameText.enabled = false;
+        }
+        else
+        {
+            _winGameText.enabled = false;
+            _looseGameText.enabled = true;
+        }
     }
     public void OnStartNewNight()
     {
