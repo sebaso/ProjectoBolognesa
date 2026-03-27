@@ -85,5 +85,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f32e2ed0cc2c3a5449195604ff91c66b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterPrefabManager
-  _minigame2Prefab: {fileID: 1419638149016062115, guid: b847111a4f85f1440a3b55b5c8ac0b64, type: 3}
+  _minigame2Prefab: {fileID: 1419638149016062115, guid: ff3251dc03dbe6742986df82f168c86e, type: 3}
   _minigame3Prefab: {fileID: 8143881909664038035, guid: 28a7892142595f540ac81c5bf29e1ccc, type: 3}
