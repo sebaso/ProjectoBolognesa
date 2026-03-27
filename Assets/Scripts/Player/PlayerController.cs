@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
     }
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && !GameManager.Instance.GetInMinigame())
         {
             if (_holdingTool != null)
             {

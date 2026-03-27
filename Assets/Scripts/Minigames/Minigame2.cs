@@ -58,7 +58,7 @@ public class Minigame2 : MonoBehaviour
 
     private void Start()
     {
-        StartMinigame();
+        //StartMinigame();
     }
 
     private void Update()
@@ -100,6 +100,7 @@ public class Minigame2 : MonoBehaviour
     //Esto se llamará desde el objeto que usa el player
     public void StartMinigame()
     {
+        Debug.Log("Starting Minigame!");
         SetMonsterReferences();
         SetObjects(_hasAnomaly);
         _isGameActive = true;

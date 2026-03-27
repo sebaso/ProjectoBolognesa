@@ -59,7 +59,7 @@ public class Minigame3 : MonoBehaviour
     {
         _hudMinigameCanvas.SetActive(false);
         SetState(1);
-        StartMinigame();
+        //StartMinigame();
     }
 
     void Update()
@@ -192,9 +192,8 @@ public class Minigame3 : MonoBehaviour
     public void StopMinigame()
     {
         if (_inGame) return;
-        
+        _hudMinigameCanvas.SetActive(false);
         _hasStarted = false;
         GameManager.Instance.SetInMinigame(false);
-        _hudMinigameCanvas.SetActive(false);
     }
 }

@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
     private Minigame1 _minigame1;
     [SerializeField]
     private Minigame2 _minigame2;
-    //TODO: Minigame3
+    [SerializeField]
+    private Minigame3 _minigame3;
 
     private bool _inMinigame;
     
@@ -56,12 +57,12 @@ public class GameManager : MonoBehaviour
     public void StartMinigame2()
     {
         _inMinigame = true;
-        //TODO: llamar a minigame2
+        _minigame2.StartMinigame();
     }
     
     public void StartMinigame3()
     {
         _inMinigame = true;
-        //TODO: llamar a minigame3
+        _minigame3.StartMinigame();
     }
 }

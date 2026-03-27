@@ -4,8 +4,8 @@ using UnityEngine;
 public class Minigame1 : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField]
-    private GameObject _toolObj;
+    //[SerializeField]
+    //private GameObject _toolObj;
     [SerializeField]
     private GameObject _hudMinigameCanvas;
     [SerializeField]
@@ -47,7 +47,7 @@ public class Minigame1 : MonoBehaviour
 
     private void Start()
     {
-        _toolObj.SetActive(false);
+        //_toolObj.SetActive(false);
         _hudMinigameCanvas.SetActive(false);
         _keyAnimator.Play("Idle");
         _inGame = false;
@@ -82,10 +82,10 @@ public class Minigame1 : MonoBehaviour
         }
     }
 
-    public void Activate(bool value)
-    {
-        _toolObj.SetActive(value);
-    }
+    // public void Activate(bool value)
+    // {
+    //     //_toolObj.SetActive(value);
+    // }
 
     public void SetWinState(int value)
     {
