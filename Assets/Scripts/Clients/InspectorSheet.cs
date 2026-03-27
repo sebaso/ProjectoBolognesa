@@ -37,6 +37,7 @@ public class InspectorSheet : MonoBehaviour
     {
         if (QueueManager.Instance == null) return;
         Client frontClient = QueueManager.Instance.CurrentInspectingClient;
+        if (frontClient == null) return;
         if (_currentClient != frontClient)
         {
             if (_currentClient != null)
@@ -79,6 +80,7 @@ public class InspectorSheet : MonoBehaviour
     }
     public void AcceptClient()
     {
+        if (QueueManager.Instance.CurrentInspectingClient == null) return;
         if (_currentClient == null) return;
         _currentClient.EnterRestaurant();
         QueueManager.Instance.RemoveClient(_currentClient);
@@ -87,6 +89,7 @@ public class InspectorSheet : MonoBehaviour
 
     public void RejectClient()
     {
+        if (QueueManager.Instance.CurrentInspectingClient == null) return;
         if (_currentClient == null) return;
         if (exitDoor != null) exitDoor.OpenDoor();
         _currentClient.LeaveRejected();
@@ -107,7 +110,7 @@ public class InspectorSheet : MonoBehaviour
             sobrietyText = "Medio";
         else
             sobrietyText = "Alto";
-        
+
         if (alcoholLevelText)
             alcoholLevelText.text = _isAlcoholRevealed ? $"Alcohol: {sobrietyText}" : "Alcohol: ???";
 

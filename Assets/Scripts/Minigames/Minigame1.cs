@@ -43,6 +43,17 @@ public class Minigame1 : MonoBehaviour
     private bool _inGame;
     private bool _hasStarted;
 
+    [Header("Audio")]
+    public AudioClip winSFX;
+    public AudioClip loseSFX;
+    private AudioSource _audioSource;
+
+    private void Awake()
+    {
+        _audioSource = gameObject.GetComponent<AudioSource>();
+        if (_audioSource == null) _audioSource = gameObject.AddComponent<AudioSource>();
+    }
+
     private void Start()
     {
         //_toolObj.SetActive(false);
@@ -150,6 +161,7 @@ public class Minigame1 : MonoBehaviour
     private void Win()
     {
         Debug.Log("You win!");
+        PlaySound(winSFX);
         _currentSpeed = 0f;
         _selectArrow.transform.rotation = Quaternion.Euler(0f, 0f, _winStopAngle);
         _keyAnimator.Play("Idle");
@@ -161,6 +173,7 @@ public class Minigame1 : MonoBehaviour
     private void Lose()
     {
         Debug.Log("You lose!");
+        PlaySound(loseSFX);
         _currentSpeed = 0f;
         _selectArrow.transform.rotation = Quaternion.Euler(0f, 0f, _loseStopAngle);
         _keyAnimator.Play("Idle");
@@ -168,6 +181,14 @@ public class Minigame1 : MonoBehaviour
         _failObj.SetActive(true);
 
         _inGame = false;
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if (clip != null && _audioSource != null)
+        {
+            _audioSource.PlayOneShot(clip);
+        }
     }
 
     public void StopMinigame()

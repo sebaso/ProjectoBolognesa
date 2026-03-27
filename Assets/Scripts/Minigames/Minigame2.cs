@@ -59,6 +59,17 @@ public class Minigame2 : MonoBehaviour
 
     private Vector2 _monsterNormalLocalPosition;
 
+    [Header("Audio")]
+    public AudioClip winSFX;
+    public AudioClip loseSFX;
+    private AudioSource _audioSource;
+
+    private void Awake()
+    {
+        _audioSource = gameObject.GetComponent<AudioSource>();
+        if (_audioSource == null) _audioSource = gameObject.AddComponent<AudioSource>();
+    }
+
     private void Start()
     {
         _minigameCanvas.SetActive(false);
@@ -260,6 +271,7 @@ public class Minigame2 : MonoBehaviour
         
         InspectorSheet.Instance.RevealIllegalItems();
         Debug.Log("You win!");
+        PlaySound(winSFX);
     }
 
     private void Lose()
@@ -268,6 +280,15 @@ public class Minigame2 : MonoBehaviour
         _maskRevealer.gameObject.SetActive(false);
         
         Debug.Log("You lose!");
+        PlaySound(loseSFX);
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if (clip != null && _audioSource != null)
+        {
+            _audioSource.PlayOneShot(clip);
+        }
     }
 
     public void StopMinigame()

@@ -57,6 +57,17 @@ public class Minigame3 : MonoBehaviour
 
     private float _noiseSeedX;
     private float _noiseSeedY;
+
+    [Header("Audio")]
+    public AudioClip winSFX;
+    public AudioClip loseSFX;
+    private AudioSource _audioSource;
+
+    private void Awake()
+    {
+        _audioSource = gameObject.GetComponent<AudioSource>();
+        if (_audioSource == null) _audioSource = gameObject.AddComponent<AudioSource>();
+    }
     
     void Start()
     {
@@ -194,6 +205,7 @@ public class Minigame3 : MonoBehaviour
         
         InspectorSheet.Instance.RevealPupils();
         Debug.Log("You Win!");
+        PlaySound(winSFX);
     }
 
     private void Lose()
@@ -201,6 +213,15 @@ public class Minigame3 : MonoBehaviour
         _inGame = false;
         ShowResult(_loseSprite);
         Debug.Log("You Lose!");
+        PlaySound(loseSFX);
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if (clip != null && _audioSource != null)
+        {
+            _audioSource.PlayOneShot(clip);
+        }
     }
 
     private void ShowResult(Sprite sprite)
