@@ -3538,6 +3538,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7490667756201522612, guid: 96c29984477c1b14c9d00badd737e65d, type: 3}
+      propertyPath: _toolObj
+      value: 
+      objectReference: {fileID: 1305372233}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3730,7 +3734,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   _minigame1: {fileID: 1732288269}
-  _minigame2: {fileID: 0}
+  _minigame2: {fileID: 2018903263}
+  _minigame3: {fileID: 2043050966}
 --- !u!4 &1059583029
 Transform:
   m_ObjectHideFlags: 0
@@ -4612,6 +4617,11 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &1305372233 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3669127647593819567, guid: 96c29984477c1b14c9d00badd737e65d, type: 3}
+  m_PrefabInstance: {fileID: 984682460}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1315825324 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5377121359232798442, guid: a1bce07031b586b4ea848d754028ce20, type: 3}
@@ -6615,6 +6625,28 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 121062160771478900, guid: 375eae8a21a62d4408ae9f53127970b1, type: 3}
   m_PrefabInstance: {fileID: 2018903260}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2018903263 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5713594434280862373, guid: 375eae8a21a62d4408ae9f53127970b1, type: 3}
+  m_PrefabInstance: {fileID: 2018903260}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63174b58809340a42a0b281d7637b42e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Minigame2
+--- !u!114 &2043050966 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 726682333024588409, guid: 014b667d684728c4785cfc75109ed226, type: 3}
+  m_PrefabInstance: {fileID: 124791660}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d666532450c67f541b1d401a4a7c2199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Minigame3
 --- !u!1 &2059436474
 GameObject:
   m_ObjectHideFlags: 0

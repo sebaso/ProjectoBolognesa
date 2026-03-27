@@ -112,6 +112,7 @@ public class Minigame2 : MonoBehaviour
         _scannedCheckpoints.Clear();
         _resultImage.gameObject.SetActive(false);
         _maskRevealer.gameObject.SetActive(true);
+        _minigameCanvas.gameObject.SetActive(true);
     }
 
     public void SetAnomaly(bool value)
