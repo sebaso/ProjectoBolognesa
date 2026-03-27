@@ -11,34 +11,13 @@ public class Broomstick : Pickeable
     public LayerMask targetLayer;
 
     private bool _isSwinging = false;
-    private bool _isHeld = false;
+    public bool IsSwinging => _isSwinging;
     private Quaternion _defaultLocalRotation;
 
-    public override void Pick(Transform holdPoint)
-    {
-        base.Pick(holdPoint);
-        _isHeld = true;
-        _defaultLocalRotation = transform.localRotation;
-    }
-
-    public override void Drop()
-    {
-        base.Drop();
-        _isHeld = false;
-    }
-
-    void Update()
-    {
-        if (_isHeld && Input.GetMouseButtonDown(0) && !_isSwinging)
-        {
-            StartCoroutine(SwingCoroutine());
-        }
-    }
-
-    private IEnumerator SwingCoroutine()
+    public IEnumerator SwingCoroutine()
     {
         _isSwinging = true;
-
+        Debug.Log("GOLPEAMOS AL CLIENTE");
         Quaternion startRot = _defaultLocalRotation;
         // como somos pobres y no tenemos animador, animamos por script en eje X :)
         Quaternion endRot = startRot * Quaternion.Euler(swingAngle, 0, 0);
