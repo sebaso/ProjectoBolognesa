@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     [Header("Player controlers")]
     private Vector2 _lookInput;
     private bool _usingGamepad = false;
-    [Header("Aiming")] 
+    [Header("Aiming")]
     [SerializeField]
     private float _interactionDistance = 1000f;
     [SerializeField]
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
     public void OnLook(InputAction.CallbackContext context)
     {
         _lookInput = context.ReadValue<Vector2>();
-        if(_lookInput.magnitude < 0.5f) 
+        if (_lookInput.magnitude < 0.5f)
             _lookInput = Vector2.zero;
         _camera.GetComponent<PlayerCamera>().SetLookInput(_lookInput);
         _usingGamepad = context.control.device is Gamepad;
@@ -78,26 +78,33 @@ public class PlayerController : MonoBehaviour
     {
         if (context.started)
         {
-            if (_holdingTool != null)
+            Ray ray = new Ray(_camera.transform.position, _camera.transform.forward);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, _interactionDistance))
             {
-                Ray ray = new Ray(_camera.transform.position, _camera.transform.forward);
-                RaycastHit hit;
-                if(Physics.Raycast(ray, out hit, _interactionDistance))
+                IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+                if (interactable != null)
                 {
-                     if (hit.collider.gameObject.layer == _clientLayer)
+                    interactable.Interact();
+                    return;
+                }
+
+                if (_holdingTool != null)
+                {
+                    if (hit.collider.gameObject.layer == _clientLayer)
                     {
                         switch (CheckHoldedTool())
                         {
                             case 1:
-                                if(hit.collider.gameObject.CompareTag("Client"))
+                                if (hit.collider.gameObject.CompareTag("Client"))
                                     GameManager.Instance.StartMinigame1();
                                 break;
                             case 2:
-                                if(hit.collider.gameObject.CompareTag("Client"))
+                                if (hit.collider.gameObject.CompareTag("Client"))
                                     GameManager.Instance.StartMinigame2();
                                 break;
                             case 3:
-                                if(hit.collider.gameObject.CompareTag("Client"))
+                                if (hit.collider.gameObject.CompareTag("Client"))
                                     GameManager.Instance.StartMinigame3();
                                 break;
                             case 4:
@@ -107,16 +114,31 @@ public class PlayerController : MonoBehaviour
                                 //TODO: interactuar con la pistola
                                 break;
                             default:
-                                //No hacemos nada
                                 break;
                         }
-                    }else if (hit.collider.gameObject.layer == _tableLayer || hit.collider.gameObject.layer == _toolLayer)
+                    }
+                    else if (hit.collider.gameObject.layer == _tableLayer || hit.collider.gameObject.layer == _toolLayer)
                     {
                         DropTool();
+                        return;
+                    }
+                }
+
+
+                if (_holdingTool == null)
+                {
+                    IPickeable pickeable = hit.collider.GetComponent<IPickeable>();
+                    if (pickeable != null)
+                    {
+                        _toolTypeTag = hit.collider.gameObject.tag;
+                        _holdingToolGO = hit.collider.gameObject;
+                        _holdingToolGO.GetComponent<BoxCollider>().enabled = false;
+                        _holdingTool = pickeable;
+                        pickeable.Pick(_holdingPoint);
+                        OnHoldTool?.Invoke(true);
                     }
                 }
             }
-            PickTool();
         }
     }
 
@@ -138,9 +160,9 @@ public class PlayerController : MonoBehaviour
         // Actualizamos el estado de _grounded según el buffer
         _grounded = colliderBuffer[0] != null;
     }
-    void OnDrawGizmos() 
+    void OnDrawGizmos()
     {
-        if(!showGizmos) return;
+        if (!showGizmos) return;
         // Cambiamos el color del Gizmo
         Gizmos.color = Color.blue;
         // Mostramos el Gizmo del check de colisión frontal
@@ -175,11 +197,11 @@ public class PlayerController : MonoBehaviour
     {
         Ray ray = new Ray(_camera.transform.position, _camera.transform.forward);
         RaycastHit hit;
-        if(Physics.Raycast(ray, out hit, _interactionDistance))
+        if (Physics.Raycast(ray, out hit, _interactionDistance))
         {
             IPickeable pickeable = hit.collider.GetComponent<IPickeable>();
 
-            if(pickeable != null)
+            if (pickeable != null)
             {
                 _toolTypeTag = hit.collider.gameObject.tag;
                 _holdingToolGO = hit.collider.gameObject;

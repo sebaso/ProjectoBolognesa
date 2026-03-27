@@ -63,6 +63,21 @@ public class InspectorSheet : MonoBehaviour
         _isPupilsRevealed = true;
         UpdateSheet();
     }
+    public void AcceptClient()
+    {
+        if (_currentClient == null) return;
+        _currentClient.EnterRestaurant();
+        QueueManager.Instance.RemoveClient(_currentClient);
+        ClearSheet();
+    }
+
+    public void RejectClient()
+    {
+        if (_currentClient == null) return;
+        _currentClient.LeaveRejected();
+        QueueManager.Instance.RemoveClient(_currentClient);
+        ClearSheet();
+    }
 
     private void UpdateSheet()
     {

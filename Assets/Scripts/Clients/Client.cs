@@ -263,8 +263,6 @@ public class Client : MonoBehaviour
         {
             WalkTo(transform.position + transform.forward * 10f);
         }
-
-        Debug.Log("[Client] Admitted to restaurant!");
     }
 
     public void LeaveRejected()
@@ -320,12 +318,11 @@ public class Client : MonoBehaviour
 
     public void OnHit()
     {
-        Debug.Log($"[Client] {gameObject.name} has been hit!");
         if (_agent != null) _agent.enabled = false;
 
         Rigidbody rb = gameObject.GetComponent<Rigidbody>();
         if (rb == null) rb = gameObject.AddComponent<Rigidbody>();
-        
+
         SphereCollider sc = gameObject.GetComponent<SphereCollider>();
         if (sc == null) sc = gameObject.AddComponent<SphereCollider>();
         sc.radius = 0.5f;
