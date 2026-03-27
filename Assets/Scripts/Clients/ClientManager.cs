@@ -10,7 +10,6 @@ public class ClientManager : MonoBehaviour
     public Transform[] spawnPoints;
     public Transform queuePoint;
     public float clientSpawnInterval = 10f;
-    public int maxClients = 10;
     public float minClientSpeed = 3f;
     public float maxClientSpeed = 5f;
     public List<GameObject> clients;
@@ -43,6 +42,7 @@ public class ClientManager : MonoBehaviour
 
     private int _nightClientNumberMultiplier = 10;
     private int _currentNight;
+    private int _nextClients;
 
     [Header("Audio")]
     public AudioClip acceptSFX;
@@ -81,8 +81,8 @@ public class ClientManager : MonoBehaviour
         _pedestrianTimer = Random.Range(pedSpawnIntervalMin, pedSpawnIntervalMax);
         _sneakyTimer = sneakySpawnInterval;
         int nextNight = _currentNight + 1;
-        int nextClients = nextNight * _nightClientNumberMultiplier;
-        HUDController.Instance.OnEnableIntroPanel(nextNight, nextClients);
+        _nextClients = nextNight * _nightClientNumberMultiplier;
+        HUDController.Instance.OnEnableIntroPanel(nextNight, _nextClients);
     }
 
     public void StartNewNight()
@@ -124,7 +124,7 @@ public class ClientManager : MonoBehaviour
     private void TrySpawnClient()
     {
         if (QueueManager.Instance != null && QueueManager.Instance.IsQueueFull) return;
-        if (clients.Count >= maxClients) return;
+        if (clients.Count >= _nextClients) return;
 
         SpawnClient();
     }

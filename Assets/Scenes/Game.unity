@@ -6198,7 +6198,35 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3954330689258592808, guid: 477c5cedb3f1afc449ea65c69dd69614, type: 3}
       insertIndex: -1
       addedObject: {fileID: 884956058}
+    - targetCorrespondingSourceObject: {fileID: 4225185578776804671, guid: 477c5cedb3f1afc449ea65c69dd69614, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1557312541}
   m_SourcePrefab: {fileID: 100100000, guid: 477c5cedb3f1afc449ea65c69dd69614, type: 3}
+--- !u!1 &1557312540 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4225185578776804671, guid: 477c5cedb3f1afc449ea65c69dd69614, type: 3}
+  m_PrefabInstance: {fileID: 1557312539}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1557312541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557312540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bafc9e485e81221b9a15c3c4ecabdfda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Broomstick
+  _holdRotationOffset: {x: 0, y: 0, z: 0}
+  swingDuration: 0.15
+  swingAngle: 60
+  hitPoint: {fileID: 0}
+  hitRadius: 4
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &1597379264 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5568371526223589888, guid: 4e7dbb3fa8279f14b8732e952576bc01, type: 3}

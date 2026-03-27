@@ -137,8 +137,8 @@ public class HUDController : MonoBehaviour
         _clientsDennied.text = ClientManager.Instance.CorrectClientsRejected.ToString();
         _sneakyClients.text = ClientManager.Instance.IntrudersAcepted.ToString();
         _totalPoints.text = totalPoints.ToString();
-        float starsAmmount = totalPoints / maxPoints;
-        starsAmmount = Mathf.Clamp(starsAmmount, 0f, 1f);
+        float starsAmmount = maxPoints > 0 ? (float)totalPoints / maxPoints : 0f;
+        starsAmmount = Mathf.Clamp01(starsAmmount);
         _filledStartBar.fillAmount = starsAmmount;
     }
     public void OnNextNight()
