@@ -428,6 +428,7 @@ public class Client : MonoBehaviour
 
     private bool HasReachedDestination()
     {
+        if(_agent.enabled == false ) return false;
         if (_agent.pathPending) return false;
 
         float effectiveStoppingDistance = Mathf.Max(_agent.stoppingDistance, destinationTolerance);

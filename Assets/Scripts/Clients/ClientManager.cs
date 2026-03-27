@@ -79,14 +79,15 @@ public class ClientManager : MonoBehaviour
 
     public void StartNewNight()
     {
-       _currentNight++;
-       _nightClients = _currentNight * _nightClientNumberMultiplier;
-       _remaningClients = _nightClients;
-       OnNightStart?.Invoke(_currentNight);
+        _currentNight++;
+        _nightClients = _currentNight * _nightClientNumberMultiplier;
+        _remaningClients = _nightClients;
+        _clientTimer = 0f;
+        OnNightStart?.Invoke(_currentNight);
     }
     void Update()
     {
-        if(_nightClients > 0)
+        if (_nightClients > 0)
         {
             _clientTimer -= Time.deltaTime;
             if (_clientTimer <= 0f)
@@ -176,7 +177,7 @@ public class ClientManager : MonoBehaviour
     {
         if (correct)
         {
-            _correctClientsAcepted ++;
+            _correctClientsAcepted++;
             CurrencyController.Instance.AddScore();
         }
         else
@@ -184,20 +185,20 @@ public class ClientManager : MonoBehaviour
             CurrencyController.Instance.SubtractScore();
         }
         _remaningClients--;
-        if(_remaningClients <= 0)
+        if (_remaningClients <= 0)
             OnNightEnds?.Invoke();
     }
     public void OnCorrectClientRejected()
     {
         CurrencyController.Instance.SubtractScore();
-        _correctClientsRejected ++;
+        _correctClientsRejected++;
         _remaningClients--;
-        if(_remaningClients <= 0)
+        if (_remaningClients <= 0)
             OnNightEnds?.Invoke();
     }
     public void OnSneakySneaked()
     {
-        _intrudersAcepted ++;
+        _intrudersAcepted++;
         CurrencyController.Instance.SubtractScore();
     }
 }

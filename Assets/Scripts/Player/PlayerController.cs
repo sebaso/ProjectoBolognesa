@@ -108,7 +108,9 @@ public class PlayerController : MonoBehaviour
                                     GameManager.Instance.StartMinigame3();
                                 break;
                             case 4:
-                                //TODO: interactuar con la porra
+                                if (hit.collider.gameObject.CompareTag("Sneaky"))
+                                    if(!_holdingToolGO.GetComponent<Broomstick>().IsSwinging)
+                                        StartCoroutine(_holdingToolGO.GetComponent<Broomstick>().SwingCoroutine());
                                 break;
                             case 5:
                                 //TODO: interactuar con la pistola
@@ -141,7 +143,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
     /// <summary>
     /// Comprueba si está en contacto con el suelo y actualiza la booleana _grounded.
     /// </summary>

@@ -164,6 +164,7 @@ public class SneakyClient : MonoBehaviour
     }
     private void CheckReachedDestination()
     {
+        if(_agent.enabled == false) return;
         if (_agent.pathPending) return;
         if (_agent.remainingDistance > _agent.stoppingDistance) return;
         if (_agent.hasPath && _agent.velocity.sqrMagnitude > 0.01f) return;
