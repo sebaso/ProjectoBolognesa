@@ -124,7 +124,7 @@ public class ClientManager : MonoBehaviour
     private void TrySpawnClient()
     {
         if (QueueManager.Instance != null && QueueManager.Instance.IsQueueFull) return;
-        if (clients.Count >= _nextClients) return;
+        if (clients.Count > _nextClients) return;
 
         SpawnClient();
     }

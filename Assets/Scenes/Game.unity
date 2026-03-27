@@ -1299,8 +1299,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: f2c6cbe636315b9429261d7114bd7ed2, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2073,8 +2073,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 987b5e62a58f2654ca78561e21bb8cc6, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2099,7 +2099,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 476335237}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 18}
   m_LocalScale: {x: 0.55, y: 0.6, z: 0.82324}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2689,8 +2689,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: f2c6cbe636315b9429261d7114bd7ed2, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2870,8 +2870,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: f2c6cbe636315b9429261d7114bd7ed2, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -6039,7 +6039,6 @@ MonoBehaviour:
   - {fileID: 1139980516}
   queuePoint: {fileID: 1713191577}
   clientSpawnInterval: 10
-  maxClients: 10
   minClientSpeed: 3
   maxClientSpeed: 5
   clients: []
@@ -6063,6 +6062,9 @@ MonoBehaviour:
   sneakyClientPrefab: {fileID: 3504892837345592268, guid: e32b68c8253ade835b21410c2d3efdff, type: 3}
   sneakySpawnInterval: 20
   sneakySpawnChance: 0.3
+  acceptSFX: {fileID: 0}
+  rejectSFX: {fileID: 0}
+  incorrectSFX: {fileID: 0}
 --- !u!114 &1501197161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7659,6 +7661,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 567843154599690545, guid: a1bce07031b586b4ea848d754028ce20, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1244616038810280863, guid: a1bce07031b586b4ea848d754028ce20, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -7667,6 +7673,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 361293071}
+    - target: {fileID: 1913163391158191854, guid: a1bce07031b586b4ea848d754028ce20, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913163391158191854, guid: a1bce07031b586b4ea848d754028ce20, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2862e2cb2a8b10b45bedc14964b3e095, type: 3}
+    - target: {fileID: 2399400492028241887, guid: a1bce07031b586b4ea848d754028ce20, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3803607380406125169, guid: a1bce07031b586b4ea848d754028ce20, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -7747,6 +7765,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4924136127592177806, guid: a1bce07031b586b4ea848d754028ce20, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4924136127592177806, guid: a1bce07031b586b4ea848d754028ce20, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c11fc9ad62fb1b74e9ffdaa081a31bed, type: 3}
     - target: {fileID: 5377121359232798442, guid: a1bce07031b586b4ea848d754028ce20, type: 3}
       propertyPath: m_Name
       value: HUDCanvas
@@ -7759,6 +7785,14 @@ PrefabInstance:
       propertyPath: _clientManager
       value: 
       objectReference: {fileID: 1501197160}
+    - target: {fileID: 7227519974138840691, guid: a1bce07031b586b4ea848d754028ce20, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090951553847633802, guid: a1bce07031b586b4ea848d754028ce20, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
