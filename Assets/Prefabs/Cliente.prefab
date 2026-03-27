@@ -65,7 +65,6 @@ MonoBehaviour:
   - {fileID: 2894617996723794907, guid: d3833b90b2815ee4da5cd704a8b86ecd, type: 3}
   maxPatience: 60
   eatDuration: 8
-  clientName: 
   age: 0
   hasID: 0
   sobriety: 0
