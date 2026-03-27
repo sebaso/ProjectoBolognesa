@@ -109,13 +109,13 @@ public class PlayerController : MonoBehaviour
                                 break;
                             case 4:
                                 if (hit.collider.gameObject.CompareTag("Sneaky"))
-                                    if(!_holdingToolGO.GetComponent<Broomstick>().IsSwinging)
+                                    if (!_holdingToolGO.GetComponent<Broomstick>().IsSwinging)
                                         StartCoroutine(_holdingToolGO.GetComponent<Broomstick>().SwingCoroutine());
                                 break;
                             case 5:
                                 if (_holdingToolGO.TryGetComponent<RayGun>(out RayGun rayGun))
                                 {
-                                    rayGun.Shoot();
+                                    //rayGun.Shoot();
                                 }
                                 break;
                             default:
