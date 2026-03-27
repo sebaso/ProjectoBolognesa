@@ -13,7 +13,20 @@ public class InspectorSheet : MonoBehaviour
     private bool _isAlcoholRevealed;
     private bool _isItemsRevealed;
     private bool _isPupilsRevealed;
+    private static InspectorSheet _instance;
+    public static InspectorSheet Instance => _instance;
 
+    private void Awake()
+    {
+        if(_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
     void Start()
     {
         ClearSheet();
