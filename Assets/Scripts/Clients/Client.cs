@@ -307,7 +307,10 @@ public class Client : MonoBehaviour
         SetState(State.Admitted);
         if (QueueManager.Instance != null && QueueManager.Instance.entrancePoint != null)
         {
-            ClientManager.Instance.OnClientAccepted(true);
+            if (CheckParameters())
+            {
+                ClientManager.Instance.OnClientAccepted(true);
+            }
             WalkTo(QueueManager.Instance.entrancePoint.position);
         }
         else
