@@ -113,7 +113,10 @@ public class PlayerController : MonoBehaviour
                                         StartCoroutine(_holdingToolGO.GetComponent<Broomstick>().SwingCoroutine());
                                 break;
                             case 5:
-                                //TODO: interactuar con la pistola
+                                if (_holdingToolGO.TryGetComponent<RayGun>(out RayGun rayGun))
+                                {
+                                    rayGun.Shoot();
+                                }
                                 break;
                             default:
                                 break;
