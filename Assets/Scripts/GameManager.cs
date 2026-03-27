@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
         //1 para no borracho
         //2 para algo de alcohol pero puede entrar
         //3 para borracho
+        
         int value = 1;
         
         float clientSobriety = QueueManager.Instance.CurrentInspectingClient.sobriety;
@@ -103,23 +104,32 @@ public class GameManager : MonoBehaviour
     {
         SetMinigame1();
         
+        if (QueueManager.Instance.CurrentInspectingClient._minigame1Played) return;
+        
         _inMinigame = true;
         _minigame1.StartMinigame();
+        QueueManager.Instance.CurrentInspectingClient._minigame1Played = true;
     }
     
     public void StartMinigame2()
     {
         SetMinigame2();
         
+        if (QueueManager.Instance.CurrentInspectingClient._minigame2Played) return;
+        
         _inMinigame = true;
         _minigame2.StartMinigame();
+        QueueManager.Instance.CurrentInspectingClient._minigame2Played = true;
     }
     
     public void StartMinigame3()
     {
         SetMinigame3();
+        
+        if (QueueManager.Instance.CurrentInspectingClient._minigame3Played) return;
         _inMinigame = true;
         _minigame3.StartMinigame();
+        QueueManager.Instance.CurrentInspectingClient._minigame3Played = true;
     }
 
 }

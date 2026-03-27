@@ -47,7 +47,7 @@ public class Minigame1 : MonoBehaviour
     {
         //_toolObj.SetActive(false);
         _hudMinigameCanvas.SetActive(false);
-        _keyAnimator.Play("Idle");
+        _keyAnimator.SetBool("Spamming", false);
         _inGame = false;
         _hasStarted = false;
         _timeRemaining = _timeLimit;
@@ -74,6 +74,7 @@ public class Minigame1 : MonoBehaviour
 
         if (_hasStarted && _inGame)
         {
+            _keyAnimator.SetBool("Spamming", true);
             ApplyGameRules();
             RotateArrow();
         }
@@ -82,7 +83,7 @@ public class Minigame1 : MonoBehaviour
     private void ResetMinigame()
     {
         _currentSpeed = 0f;
-        _keyAnimator.Play("Idle");
+        _keyAnimator.SetBool("Spamming", false);
         _selectArrow.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         
     }
@@ -119,7 +120,7 @@ public class Minigame1 : MonoBehaviour
         //Activate(true);
         _timeRemaining = _timeLimit;
         _hudMinigameCanvas.SetActive(true);
-        _keyAnimator.Play("Spamming");
+        _keyAnimator.SetBool("Spamming", true);
         _keyAnimator.gameObject.SetActive(true);
     }
 
@@ -152,7 +153,7 @@ public class Minigame1 : MonoBehaviour
         Debug.Log("You win!");
         _currentSpeed = 0f;
         _selectArrow.transform.rotation = Quaternion.Euler(0f, 0f, _winStopAngle);
-        _keyAnimator.Play("Idle");
+        _keyAnimator.SetBool("Spamming", false);
         _keyAnimator.gameObject.SetActive(false);
         InspectorSheet.Instance.RevealAlcohol();
         _inGame = false;
@@ -163,7 +164,7 @@ public class Minigame1 : MonoBehaviour
         Debug.Log("You lose!");
         _currentSpeed = 0f;
         _selectArrow.transform.rotation = Quaternion.Euler(0f, 0f, _loseStopAngle);
-        _keyAnimator.Play("Idle");
+        _keyAnimator.SetBool("Spamming", false);
         _keyAnimator.gameObject.SetActive(false);
         _failObj.SetActive(true);
 
@@ -173,7 +174,7 @@ public class Minigame1 : MonoBehaviour
     public void StopMinigame()
     {
         if (_inGame) return;
-        _keyAnimator.Play("Idle");
+        _keyAnimator.SetBool("Spamming", false);
         _hudMinigameCanvas.SetActive(false);
         _failObj.SetActive(false);
         //Activate(false);

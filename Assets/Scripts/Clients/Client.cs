@@ -34,6 +34,9 @@ public class Client : MonoBehaviour
     public GameObject minigame2MonsterPrefab;
     public GameObject minigame3MonsterPrefab;
     public float destinationTolerance = 0.5f;
+    public bool _minigame1Played;
+    public bool _minigame2Played;
+    public bool _minigame3Played;
 
     public int money;
     public int happiness;
