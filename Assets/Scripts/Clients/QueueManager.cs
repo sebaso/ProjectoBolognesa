@@ -10,6 +10,7 @@ public class QueueManager : MonoBehaviour
     public Transform inspectionPoint;
     public Transform entrancePoint;
     public Transform queueEntrance;
+    public Transform exitPoint;
     public Vector3 queueDirection = Vector3.back;
     public float queueSpacing = 1.2f;
     public int maxQueueSize = 10;

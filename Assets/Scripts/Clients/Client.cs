@@ -17,7 +17,8 @@ public class Client : MonoBehaviour
         Leaving,            // Walking to exit, will be destroyed on arrival
         Angry,               // Patience ran out — leaving unhappy
         Inspecting,         // At the bouncer's check window
-        Admitted            // Allowed into the restaurant
+        Admitted,           // Allowed into the restaurant
+        FinalExit           // Walking past the door before despawning
     }
 
     public State CurrentState { get; private set; } = State.Waiting;
@@ -92,7 +93,35 @@ public class Client : MonoBehaviour
 
             case State.Leaving:
             case State.Angry:
+                if (InspectorSheet.Instance != null && InspectorSheet.Instance.exitDoor != null)
+                {
+                    if (!InspectorSheet.Instance.exitDoor.IsFullyOpen)
+                    {
+                        Freeze();
+                        return;
+                    }
+                }
+                
+                if (HasReachedDestination())
+                {
+                    Vector3 forwardDir = transform.forward;
+                    if (_agent.velocity.sqrMagnitude > 0.1f) forwardDir = _agent.velocity.normalized;
+                    WalkTo(transform.position + forwardDir * 3f);
+                    SetState(State.FinalExit);
+                }
+                break;
+
             case State.Admitted:
+                if (HasReachedDestination())
+                {
+                    Vector3 forwardDir = transform.forward;
+                    if (_agent.velocity.sqrMagnitude > 0.1f) forwardDir = _agent.velocity.normalized;
+                    WalkTo(transform.position + forwardDir * 3f);
+                    SetState(State.FinalExit);
+                }
+                break;
+
+            case State.FinalExit:
                 if (HasReachedDestination())
                     Destroy(gameObject);
                 break;
@@ -300,7 +329,18 @@ public class Client : MonoBehaviour
 
     private void WalkToExit()
     {
-        Vector3 exitPos = _queuePoint != null ? _queuePoint.position : transform.position + Vector3.back * 10f;
+        Vector3 exitPos = transform.position + Vector3.back * 10f;
+        
+        if (QueueManager.Instance != null && QueueManager.Instance.exitPoint != null)
+        {
+            exitPos = QueueManager.Instance.exitPoint.position;
+        }
+        else if (_queuePoint != null)
+        {
+            // Fallback: move to queue point only if exitPoint is not defined
+            exitPos = _queuePoint.position;
+        }
+        
         WalkTo(exitPos);
     }
 
