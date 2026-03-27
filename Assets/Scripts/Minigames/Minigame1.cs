@@ -105,7 +105,7 @@ public class Minigame1 : MonoBehaviour
     public void StartMinigame()
     {
         Debug.Log("Starting Minigame");
-        Activate(true);
+        //Activate(true);
         _timeRemaining = _timeLimit;
         _hudMinigameCanvas.SetActive(true);
         _keyAnimator.Play("Spamming");

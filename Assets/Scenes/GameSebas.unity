@@ -5296,6 +5296,8 @@ MonoBehaviour:
   queuePoint: {fileID: 1713191577}
   clientSpawnInterval: 10
   maxClients: 10
+  minClientSpeed: 3
+  maxClientSpeed: 5
   clients: []
   _nightClients: 0
   _remaningClients: 0
@@ -5304,6 +5306,8 @@ MonoBehaviour:
   pedSpawnIntervalMax: 8
   minBlobSize: 1
   maxBlobSize: 4
+  minPedSpeed: 2.5
+  maxPedSpeed: 4.5
   pedestrianRoutes:
   - starts:
     - {fileID: 1156700576}
@@ -6826,13 +6830,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2083487353}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -1.82, y: 0.287, z: 1.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &2147166831
 GameObject:
   m_ObjectHideFlags: 0
