@@ -40,7 +40,8 @@ public class Client : MonoBehaviour
     private Vector3 _queueSlotPosition;
     private Quaternion _targetRotation;
     private bool Initialized = false;
-
+    [SerializeField]
+    private Animator _animator;
     public float PatienceRatio => _patience / maxPatience;
 
     void Awake()
@@ -53,7 +54,6 @@ public class Client : MonoBehaviour
     {
         _queuePoint = queuePoint;
     }
-
     void Update()
     {
         if (!Initialized)
@@ -91,6 +91,7 @@ public class Client : MonoBehaviour
                     Destroy(gameObject);
                 break;
         }
+        UpdateAnimation();
     }
 
     public void ArriveAtQueue()
@@ -110,6 +111,7 @@ public class Client : MonoBehaviour
         Initialized = true;
         selectedModel.transform.position = selectedModel.transform.position + new Vector3(0, -0.5f, 0);
 
+        _animator = selectedModel.GetComponent<Animator>();
         age = Random.Range(15, 45);
         hasID = Random.value > 0.1f; // 90% tiene ID
         sobriety = Random.Range(0.0f, 1.0f);
@@ -168,7 +170,6 @@ public class Client : MonoBehaviour
             float variance = Random.Range(-5f, 5f); // para que no miren todos perfectamente alineados
             _targetRotation = Quaternion.LookRotation(lookDir) * Quaternion.Euler(0, variance, 0);
         }
-
         SetState(State.Waiting);
         WalkTo(slotPosition);
     }
@@ -296,7 +297,19 @@ public class Client : MonoBehaviour
         if (_agent.hasPath && _agent.velocity.sqrMagnitude > 0.01f) return false;
         return true;
     }
+    private void UpdateAnimation()
+    {
+        if (_animator == null) return;
 
+        float speed = _agent.velocity.magnitude;
+
+        bool isMoving = speed > 0.1f;
+
+        _animator.SetBool("Walking", isMoving);
+
+        // opcional: correr
+        _animator.SetBool("Running", speed > 3.0f);
+    }
     private void SetState(State newState)
     {
         CurrentState = newState;

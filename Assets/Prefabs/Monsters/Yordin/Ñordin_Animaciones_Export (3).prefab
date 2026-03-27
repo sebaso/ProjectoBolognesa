@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\xD1ordin_Animaciones_Export (3)"
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 7cefe458e1c90f94c9eb2eaf1a1f8c68, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: a18084dcdacd9b14080adc74747ceeb7, type: 2}
     - target: {fileID: 7926839288223873370, guid: 7cefe458e1c90f94c9eb2eaf1a1f8c68, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 

@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: M3_Animaciones_Export (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 82fc1715d394e8a40b15cc0212626341, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c398dbb87241ca146a5a392008739d85, type: 2}
     - target: {fileID: 7706110884207132511, guid: 82fc1715d394e8a40b15cc0212626341, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 

@@ -63,6 +63,14 @@ MonoBehaviour:
   - {fileID: 5974182004447111945, guid: b7252d528222d124dabfb9ae2de4df66, type: 3}
   - {fileID: 5248741639382075114, guid: 2c87cf6690aeb8f4c8614a6d5d30f236, type: 3}
   - {fileID: 2894617996723794907, guid: d3833b90b2815ee4da5cd704a8b86ecd, type: 3}
+  - {fileID: 610774039621582205, guid: a00f1b6580d22dd448eedab541bf60ad, type: 3}
+  - {fileID: 7772306528470317912, guid: 2badb77ea6171fd49845c42e2411dafe, type: 3}
+  - {fileID: 1130569785933250226, guid: 4bf9b5499f5b5a541bfea3635b36bc5a, type: 3}
+  - {fileID: 2955252557631091767, guid: eb187686aa6cfe64fbf2e872f529ab8e, type: 3}
+  - {fileID: 5752265481850252924, guid: 464b19661cc843040bd619f0e107ee9e, type: 3}
+  - {fileID: 2271275151298924268, guid: e991ebd07b775a744bca321e6fc3d251, type: 3}
+  - {fileID: 6004137247032382706, guid: b001429b91ad7944fbf44c4c83f6da6e, type: 3}
+  - {fileID: 5674819217680802788, guid: bf7801d1da4ac4c42a4edd84f3c4acdc, type: 3}
   maxPatience: 60
   eatDuration: 8
   age: 0

@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 88baf8b19a87f00459a02b5a579e9ef2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.544
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 88baf8b19a87f00459a02b5a579e9ef2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.08855001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 88baf8b19a87f00459a02b5a579e9ef2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.74
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 88baf8b19a87f00459a02b5a579e9ef2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mike_Animaciones_Export (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 88baf8b19a87f00459a02b5a579e9ef2, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 48fd3e9c2f9bca64db3b5d5733b74552, type: 2}
     - target: {fileID: 6743226491324446583, guid: 88baf8b19a87f00459a02b5a579e9ef2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 

@@ -5,7 +5,6 @@ using UnityEngine.AI;
 public class Pedestrian : MonoBehaviour
 {
     private NavMeshAgent _agent;
-
     void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();

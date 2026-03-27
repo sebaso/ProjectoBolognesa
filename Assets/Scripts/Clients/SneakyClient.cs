@@ -22,7 +22,6 @@ public class SneakyClient : MonoBehaviour
     private float _cooldownTimer = 0f;
     private bool _wasSeenLastFrame = false;
     private Transform _entrancePoint;
-
     void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -102,7 +101,7 @@ public class SneakyClient : MonoBehaviour
             _agent.speed = slowSpeed;
             if (_entrancePoint != null)
                 _agent.SetDestination(_entrancePoint.position);
-            Debug.Log("[SneakyClient] Resuming sneaking...");
+            //Debug.Log("[SneakyClient] Resuming sneaking...");
         }
     }
     private void React()
@@ -130,8 +129,7 @@ public class SneakyClient : MonoBehaviour
             _agent.SetDestination(hit.position);
         else
             _agent.SetDestination(fleePos);
-
-        Debug.Log("[SneakyClient] PANIC! Fleeing...");
+        //Debug.Log("[SneakyClient] PANIC! Fleeing...");
     }
 
     private void StartRunningForIt()
@@ -139,7 +137,7 @@ public class SneakyClient : MonoBehaviour
         _agent.speed = fastSpeed;
         if (_entrancePoint != null)
             _agent.SetDestination(_entrancePoint.position);
-        Debug.Log("[SneakyClient] MAKE A RUN FOR IT!");
+        //Debug.Log("[SneakyClient] MAKE A RUN FOR IT!");
     }
     private bool IsInView()
     {
