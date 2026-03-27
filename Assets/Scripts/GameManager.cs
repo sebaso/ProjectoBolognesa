@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Minigame3 _minigame3;
 
+    //TODO: quitar los metodos de setminigame (estos son para pruebas)
     [SerializeField] private GameObject _prefabminigame2;
     [SerializeField] private GameObject _prefabminigame3;
 
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour
             AudioManager.Instance.PitchRegular();
         }
         
+        //TODO: quitar los metodos de setminigame (estos son para pruebas)
         SetMinigame1(1);
         SetMinigame2(true, _prefabminigame2);
         SetMinigame3(1, _prefabminigame3);
