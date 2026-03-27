@@ -30,17 +30,12 @@ public class BouncerManager : MonoBehaviour
     {
         Client client = GetCurrentClient();
         if (client == null) return;
-
         if (isMinigameActive)
         {
-            Debug.LogWarning($"[Bouncer] Already inspecting with {currentActiveTool}. Finish that first.");
             return;
         }
-
         isMinigameActive = true;
         currentActiveTool = toolName;
-        Debug.Log($"[Bouncer] Started inspection minigame with tool: {toolName} on client: {client.gameObject.name}");
-
         OnMinigameStarted?.Invoke(client, toolName);
     }
 

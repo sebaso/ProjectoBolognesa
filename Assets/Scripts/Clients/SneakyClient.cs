@@ -63,14 +63,12 @@ public class SneakyClient : MonoBehaviour
             {
                 _spotCount++;
                 _cooldownTimer = dissimulationCooldown;
-                Debug.Log($"[SneakyClient] Spotted! Count: {_spotCount}");
 
                 if (_spotCount >= maxSpotsBeforeReacting)
                     React();
                 else
                 {
                     _state = SneakyState.Dissimulating;
-                    Debug.Log("[SneakyClient] Dissimulating...");
                 }
             }
         }
@@ -103,7 +101,6 @@ public class SneakyClient : MonoBehaviour
             _agent.speed = slowSpeed;
             if (_entrancePoint != null)
                 _agent.SetDestination(_entrancePoint.position);
-            //Debug.Log("[SneakyClient] Resuming sneaking...");
         }
         CheckReachedDestination();
     }
@@ -127,8 +124,6 @@ public class SneakyClient : MonoBehaviour
             _agent.SetDestination(hit.position);
         else
             _agent.SetDestination(_spawnPos);
-
-        //Debug.Log("[SneakyClient] PANIC! Fleeing to spawn...");
     }
 
     private void StartRunningForIt()
@@ -136,7 +131,6 @@ public class SneakyClient : MonoBehaviour
         _agent.speed = fastSpeed;
         if (_entrancePoint != null)
             _agent.SetDestination(_entrancePoint.position);
-        //Debug.Log("[SneakyClient] MAKE A RUN FOR IT!");
     }
     private bool IsInView()
     {
@@ -159,7 +153,6 @@ public class SneakyClient : MonoBehaviour
     }
     public void OnHit()
     {
-        Debug.Log("[SneakyClient] Ouch! I've been hit!");
         _agent.enabled = false;
 
         gameObject.AddComponent<Rigidbody>();
