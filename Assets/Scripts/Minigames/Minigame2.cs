@@ -26,6 +26,8 @@ public class Minigame2 : MonoBehaviour
     [SerializeField]
     private Image _resultImage;
     [SerializeField]
+    private GameObject _monsterParent;
+    [SerializeField]
     private MonsterMinigame2 _monsterReferences;
     
     [Header("Minigame Settings")]
@@ -118,6 +120,11 @@ public class Minigame2 : MonoBehaviour
     public void SetAnomaly(bool value)
     {
         _hasAnomaly = value;
+    }
+
+    public void SetMonsterPrefab(GameObject monsterPrefab)
+    {
+        Instantiate(monsterPrefab, _monsterParent.transform);
     }
 
     private void SetMonsterReferences()
@@ -254,6 +261,9 @@ public class Minigame2 : MonoBehaviour
     public void StopMinigame()
     {
         _isGameActive = false;
+        
         _minigameCanvas.SetActive(false);
+        PlayerCamera.Instance.OnDisableCursor();
+        GameManager.Instance.SetInMinigame(false);
     }
 }

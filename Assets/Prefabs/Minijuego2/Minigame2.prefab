@@ -654,6 +654,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   _resultImage: {fileID: 1743725836478316737}
+  _monsterParent: {fileID: 2183398542944140630}
   _monsterReferences: {fileID: 0}
   _timeLimit: 10
   _hasAnomaly: 0
@@ -675,9 +676,10 @@ MonoBehaviour:
   - {fileID: 1587645858, guid: c63dd857ed34e954cbe36707831280ff, type: 3}
   - {fileID: 1906221491, guid: a9cc6c30d5554084f803f40b10343432, type: 3}
   _normalObjSprites:
-  - {fileID: -1333825077, guid: ed7ea87c9dabdf84f9ec19882a24f808, type: 3}
-  - {fileID: -1736067527, guid: 55f8e0f65c356e14ea8c4770fb36e5af, type: 3}
-  - {fileID: 193084971, guid: a4fa6cdb4fe302f4494c7419abcb0659, type: 3}
+  - {fileID: -714945253, guid: 0e32e157dd754f64689397edbe39c494, type: 3}
+  - {fileID: -1550793222, guid: 0e32e157dd754f64689397edbe39c494, type: 3}
+  - {fileID: -538930595, guid: 937b4be4770f4a144866ecd19c76c0b4, type: 3}
+  - {fileID: 542314694, guid: 937b4be4770f4a144866ecd19c76c0b4, type: 3}
   _noneSprite: {fileID: -102998071, guid: f6517cd9435179d4fa3dbe95e66845e9, type: 3}
   _loseSprite: {fileID: 1577254942, guid: c00da37e26259b04f88b90e39bf3c2a8, type: 3}
 --- !u!1 &5598827447320221605

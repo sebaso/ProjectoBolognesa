@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Minigame3 _minigame3;
 
+    [SerializeField] private GameObject _prefabminigame2;
+    [SerializeField] private GameObject _prefabminigame3;
+
     private bool _inMinigame;
     
     private static GameManager _instance;
@@ -37,6 +40,10 @@ public class GameManager : MonoBehaviour
             AudioManager.Instance.PlayGameMusic();
             AudioManager.Instance.PitchRegular();
         }
+        
+        SetMinigame1(1);
+        SetMinigame2(true, _prefabminigame2);
+        SetMinigame3(1, _prefabminigame3);
     }
     
     public bool GetInMinigame()
@@ -46,6 +53,31 @@ public class GameManager : MonoBehaviour
     public void SetInMinigame(bool value)
     {
         _inMinigame = value;
+    }
+
+    //TODO: llamar al llegar un client a la zona de inspection
+    public void SetMinigame1(int value)
+    {
+        //1 para no borracho
+        //2 para algo de alcohol pero puede entrar
+        //3 para borracho
+        _minigame1.SetWinState(value);
+    }
+    
+    //TODO: llamar al llegar un client a la zona de inspection
+    public void SetMinigame2(bool hasAnomaly, GameObject minigame2MonsterPrefab)
+    {
+        _minigame2.SetAnomaly(hasAnomaly);
+        _minigame2.SetMonsterPrefab(minigame2MonsterPrefab);
+    }
+    
+    //TODO: llamar al llegar un client a la zona de inspection
+    public void SetMinigame3(int drugState, GameObject minigame3MonsterPrefab)
+    {
+        //0 no drogado
+        //1 drogado
+        _minigame3.SetState(drugState);
+        _minigame3.SetMonsterPrefab(minigame3MonsterPrefab);
     }
 
     public void StartMinigame1()

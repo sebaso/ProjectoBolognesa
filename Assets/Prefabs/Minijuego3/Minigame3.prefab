@@ -585,6 +585,7 @@ MonoBehaviour:
   _pupil: {fileID: 0}
   _progressBar: {fileID: 3741780420933949689}
   _MinigameCanvas: {fileID: 8615246055057057094}
+  _monsterParent: {fileID: 1416554248567904756}
   _monsterReferences: {fileID: 0}
   _pupilSpeed: 0.5
   _erraticAmount: 5

@@ -18,6 +18,8 @@ public class Minigame3 : MonoBehaviour
     [SerializeField]
     private Canvas _MinigameCanvas;
     [SerializeField]
+    private GameObject _monsterParent;
+    [SerializeField]
     private MonsterMinigame3 _monsterReferences;
     
     [Header("Eye Settings")]
@@ -58,7 +60,7 @@ public class Minigame3 : MonoBehaviour
     void Start()
     {
         _hudMinigameCanvas.SetActive(false);
-        SetState(1);
+        //SetState(1);
         //StartMinigame();
     }
 
@@ -82,6 +84,11 @@ public class Minigame3 : MonoBehaviour
     public void SetState(int state)
     {
         _drugState =  state;
+    }
+    
+    public void SetMonsterPrefab(GameObject monsterPrefab)
+    {
+        Instantiate(monsterPrefab, _monsterParent.transform);
     }
 
     public void SetMonsterReferences()
@@ -194,6 +201,7 @@ public class Minigame3 : MonoBehaviour
         if (_inGame) return;
         _hudMinigameCanvas.SetActive(false);
         _hasStarted = false;
+        PlayerCamera.Instance.OnDisableCursor();
         GameManager.Instance.SetInMinigame(false);
     }
 }

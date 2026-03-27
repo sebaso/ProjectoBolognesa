@@ -54,7 +54,7 @@ public class Minigame1 : MonoBehaviour
         _hasStarted = false;
         _timeRemaining = _timeLimit;
         _failObj.SetActive(false);
-        SetWinState(3);
+        //SetWinState(3);
         //StartMinigame();
     }
 
@@ -175,6 +175,7 @@ public class Minigame1 : MonoBehaviour
         _failObj.SetActive(false);
         //Activate(false);
         _hasStarted = false;
+        PlayerCamera.Instance.OnDisableCursor();
         GameManager.Instance.SetInMinigame(false);
     }
 }
