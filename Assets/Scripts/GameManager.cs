@@ -99,4 +99,6 @@ public class GameManager : MonoBehaviour
         _inMinigame = true;
         _minigame3.StartMinigame();
     }
+
+    //TODO: DESABILITAR CURSOR CON PLAYERCAMERA.INSTANCE.ONDISABLE() AL SALIR DEL MINIJUEGO
 }

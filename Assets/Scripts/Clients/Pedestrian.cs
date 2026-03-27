@@ -18,6 +18,26 @@ public class Pedestrian : MonoBehaviour
         }
     }
 
+    public void SetSpeed(float speed)
+    {
+        if (_agent == null) _agent = GetComponent<NavMeshAgent>();
+        _agent.speed = speed;
+    }
+
+    public void OnHit()
+    {
+        Debug.Log($"[Pedestrian] {gameObject.name} has been hit!");
+        if (_agent != null) _agent.enabled = false;
+
+        Rigidbody rb = gameObject.GetComponent<Rigidbody>() ?? gameObject.AddComponent<Rigidbody>();
+        SphereCollider sc = gameObject.GetComponent<SphereCollider>() ?? gameObject.AddComponent<SphereCollider>();
+        sc.radius = 0.5f;
+
+        rb.AddForce(Vector3.up * 10f, ForceMode.Impulse);
+        rb.AddForce(Vector3.forward * 10f, ForceMode.Impulse);
+        Destroy(gameObject, 5f);
+    }
+
     void Update()
     {
         if (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)

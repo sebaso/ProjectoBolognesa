@@ -12,7 +12,7 @@ public class Pickeable : MonoBehaviour, IPickeable
         _originalPos = transform.position;
         _originalRotation = transform.localRotation;
     }
-    public void Pick(Transform holdPoint)
+    public virtual void Pick(Transform holdPoint)
     {
         if(HUDController.Instance.IsPanelActive || GameMenuController.Instance.IsPauseActive) return;
         transform.SetParent(holdPoint);
@@ -21,7 +21,7 @@ public class Pickeable : MonoBehaviour, IPickeable
         transform.localPosition = new Vector3(0f ,0.4f, 0f);
     }
 
-    public void Drop()
+    public virtual void Drop()
     {
         Debug.Log("panel de HUD activo? " + HUDController.Instance.IsPanelActive);
         Debug.Log("Pausa activa? " + GameMenuController.Instance.IsPauseActive);
