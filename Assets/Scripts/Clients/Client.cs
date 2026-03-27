@@ -119,16 +119,9 @@ public class Client : MonoBehaviour
             case State.Admitted:
                 if (_agent.hasPath && !_agent.pathPending && _agent.remainingDistance < Mathf.Max(_agent.stoppingDistance, destinationTolerance))
                 {
-                    if (QueueManager.Instance != null && QueueManager.Instance.restaurantInteriorPoint != null)
-                    {
-                        WalkTo(QueueManager.Instance.restaurantInteriorPoint.position);
-                    }
-                    else
-                    {
-                        Vector3 forwardDir = transform.forward;
-                        if (_agent.velocity.sqrMagnitude > 0.1f) forwardDir = _agent.velocity.normalized;
-                        WalkTo(transform.position + forwardDir * 5f);
-                    }
+                    Vector3 forwardDir = transform.forward;
+                    if (_agent.velocity.sqrMagnitude > 0.1f) forwardDir = _agent.velocity.normalized;
+                    WalkTo(transform.position + forwardDir * 3f);
                     SetState(State.FinalExit);
                 }
                 break;
