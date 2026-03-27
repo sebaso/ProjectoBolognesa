@@ -14,7 +14,7 @@ public class Minigame1 : MonoBehaviour
     private Animator _keyAnimator;
     [SerializeField]
     private GameObject _failObj;
-    
+
     [Header("Minigame Settings")]
     [SerializeField]
     private float _maxSpeed;
@@ -28,7 +28,7 @@ public class Minigame1 : MonoBehaviour
     private float _timeLimit;
     private float _timeRemaining;
     private float _currentSpeed;
-    
+
     [Header("Posición de Parada (Ángulos)")]
     [SerializeField]
     private float _redStopAngle;
@@ -54,11 +54,12 @@ public class Minigame1 : MonoBehaviour
         _failObj.SetActive(false);
         //SetWinState(3);
         //StartMinigame();
+
     }
 
     private void Update()
     {
-        
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (!_hasStarted)
@@ -66,8 +67,8 @@ public class Minigame1 : MonoBehaviour
                 _inGame = true;
                 _hasStarted = true;
             }
-            
-            if(_inGame)
+
+            if (_inGame)
                 IncrementValue();
         }
 
@@ -104,6 +105,20 @@ public class Minigame1 : MonoBehaviour
 
     public void StartMinigame()
     {
+        if (QueueManager.Instance.CurrentInspectingClient == null) return;
+        float sobriety = QueueManager.Instance.CurrentInspectingClient.sobriety;
+        if (sobriety < 0.3f)
+        {
+            SetWinState(1);
+        }
+        else if (sobriety < 0.6f)
+        {
+            SetWinState(2);
+        }
+        else
+        {
+            SetWinState(3);
+        }
         Debug.Log("Starting Minigame");
         //Activate(true);
         _timeRemaining = _timeLimit;
@@ -120,9 +135,9 @@ public class Minigame1 : MonoBehaviour
     private void ApplyGameRules()
     {
         _currentSpeed -= _decrementSpeed * Time.deltaTime;
-        
+
         _currentSpeed = Mathf.Max(0f, _currentSpeed);
-        
+
         _timeRemaining -= Time.deltaTime;
 
         if (_currentSpeed >= _maxSpeed)
@@ -143,7 +158,7 @@ public class Minigame1 : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 0f, _winStopAngle);
         _keyAnimator.Play("Idle");
         _keyAnimator.gameObject.SetActive(false);
-        
+        InspectorSheet.Instance.RevealAlcohol();
         _inGame = false;
     }
 
@@ -155,10 +170,10 @@ public class Minigame1 : MonoBehaviour
         _keyAnimator.Play("Idle");
         _keyAnimator.gameObject.SetActive(false);
         _failObj.SetActive(true);
-        
+
         _inGame = false;
     }
-    
+
     //TODO: Al pulsar E por primera vez inicia el giro de la flecha
     //TODO: Cada vez que pulsas E aumenta en 0.5 la velocidad pero si no la pulsas decrementa en 0.25
     //TODO: tienes un tiempo límite para llegar a 10 si no llegas pierdes
