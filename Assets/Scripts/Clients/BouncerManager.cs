@@ -70,7 +70,6 @@ public class BouncerManager : MonoBehaviour
         {
             Debug.Log("<color=red>[Bouncer] MISTAKE! You let in someone who didn't meet requirements.</color>");
         }
-        ClientManager.Instance.OnClientAccepted(isAllowed);
         client.EnterRestaurant();
         QueueManager.Instance.RemoveClient(client);
     }
@@ -93,7 +92,6 @@ public class BouncerManager : MonoBehaviour
         }
         else
         {
-            ClientManager.Instance.OnCorrectClientRejected();
             Debug.Log("<color=red>[Bouncer] MISTAKE! You rejected someone who was allowed.</color>");
         }
         client.LeaveRejected();

@@ -289,6 +289,7 @@ public class Client : MonoBehaviour
         SetState(State.Admitted);
         if (QueueManager.Instance != null && QueueManager.Instance.entrancePoint != null)
         {
+            ClientManager.Instance.OnClientAccepted(true);
             WalkTo(QueueManager.Instance.entrancePoint.position);
         }
         else
@@ -300,10 +301,35 @@ public class Client : MonoBehaviour
     public void LeaveRejected()
     {
         SetState(State.Angry);
+        if (CheckParameters())
+        {
+            ClientManager.Instance.OnCorrectClientRejected();
+        }
         WalkToExit();
         Debug.Log("[Client] Rejected! Leaving angry.");
     }
-
+    private bool CheckParameters()
+    {
+        var _currentInspectingClient = QueueManager.Instance.CurrentInspectingClient;
+        if(_currentInspectingClient.age >= 18)
+        {
+            Debug.Log("Es mayor de edad");
+            if(_currentInspectingClient.sobriety <= 66)
+            {
+                Debug.Log("Esta sobrio");
+                if (!_currentInspectingClient.hasIllegalItems)
+                {
+                    Debug.Log("No tiene objetos ilegales");
+                    if(_currentInspectingClient.pupils == 0)
+                    {
+                        Debug.Log("No está drogado");
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
     private void LeaveHappy()
     {
         happiness += 10;
