@@ -8,6 +8,7 @@ public class InspectorSheet : MonoBehaviour
     public TextMeshPro alcoholLevelText;
     public TextMeshPro illegalItemText;
     public TextMeshPro pupilsText;
+    public DoorOpener exitDoor;
 
     private Client _currentClient;
     private bool _isAlcoholRevealed;
@@ -18,7 +19,7 @@ public class InspectorSheet : MonoBehaviour
 
     private void Awake()
     {
-        if(_instance == null)
+        if (_instance == null)
         {
             _instance = this;
         }
@@ -87,6 +88,7 @@ public class InspectorSheet : MonoBehaviour
     public void RejectClient()
     {
         if (_currentClient == null) return;
+        if (exitDoor != null) exitDoor.OpenDoor();
         _currentClient.LeaveRejected();
         QueueManager.Instance.RemoveClient(_currentClient);
         ClearSheet();

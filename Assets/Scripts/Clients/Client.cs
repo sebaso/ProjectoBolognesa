@@ -17,7 +17,8 @@ public class Client : MonoBehaviour
         Leaving,            // Walking to exit, will be destroyed on arrival
         Angry,               // Patience ran out — leaving unhappy
         Inspecting,         // At the bouncer's check window
-        Admitted            // Allowed into the restaurant
+        Admitted,           // Allowed into the restaurant
+        FinalExit           // Walking past the door before despawning
     }
 
     public State CurrentState { get; private set; } = State.Waiting;
@@ -32,6 +33,7 @@ public class Client : MonoBehaviour
     public string dressCode;
     public GameObject minigame2MonsterPrefab;
     public GameObject minigame3MonsterPrefab;
+    public float destinationTolerance = 0.5f;
 
     public int money;
     public int happiness;
@@ -44,7 +46,7 @@ public class Client : MonoBehaviour
     private Quaternion _targetRotation;
     private bool Initialized = false;
     [SerializeField]
-    private Animator _animator;    
+    private Animator _animator;
     private bool _hasNotifiedArrival = false;
 
     public event System.Action OnReachedInspection;
@@ -93,11 +95,43 @@ public class Client : MonoBehaviour
 
             case State.Leaving:
             case State.Angry:
+                if (InspectorSheet.Instance != null && InspectorSheet.Instance.exitDoor != null)
+                {
+                    if (!InspectorSheet.Instance.exitDoor.IsFullyOpen)
+                    {
+                        Freeze();
+                        return;
+                    }
+                }
+
+                if (!_agent.hasPath || _agent.isStopped)
+                {
+                    WalkToExit();
+                }
+
+                if (_agent.hasPath && !_agent.pathPending && _agent.remainingDistance < Mathf.Max(_agent.stoppingDistance, destinationTolerance))
+                {
+                    Vector3 forwardDir = transform.forward;
+                    if (_agent.velocity.sqrMagnitude > 0.1f) forwardDir = _agent.velocity.normalized;
+                    WalkTo(transform.position + forwardDir * 3f);
+                    SetState(State.FinalExit);
+                }
+                break;
+
             case State.Admitted:
+                if (_agent.hasPath && !_agent.pathPending && _agent.remainingDistance < Mathf.Max(_agent.stoppingDistance, destinationTolerance))
+                {
+                    Vector3 forwardDir = transform.forward;
+                    if (_agent.velocity.sqrMagnitude > 0.1f) forwardDir = _agent.velocity.normalized;
+                    WalkTo(transform.position + forwardDir * 3f);
+                    SetState(State.FinalExit);
+                }
+                break;
+            case State.FinalExit:
                 if (HasReachedDestination())
                     Destroy(gameObject);
                 break;
-            
+
             case State.Inspecting:
                 if (HasReachedDestination())
                 {
@@ -151,18 +185,25 @@ public class Client : MonoBehaviour
 
     private string GetRandomName()
     {
-        string[] names = { "Juan", "Maria", "Pedro", "Lucia", "Carlos", "Elena", "Miguel", "Sofia", "Diego", "Paula" };
-        string[] lastNames = { "Garcia", "Rodriguez", "Lopez", "Martinez", "Sanchez", "Perez", "Gomez", "Martin", "Jimenez", "Ruiz" };
-        return names[Random.Range(0, names.Length)] + " " + lastNames[Random.Range(0, lastNames.Length)];
+        string[] monsterNames = {
+            "Chupacabras", "El Silbón", "La Llorona", "Trasgu", "Gamusino",
+            "Cadejo", "Ojáncanu", "Meiga", "Duende", "Güije",
+            "El Coco", "La Cuca", "Cuélebre", "Lamia", "Brujo",
+            "Espectro", "Siniestro", "Zarpa", "Colmillo", "Gorguer","El Pepe Arrozero" ,"El Pepe Bolognesas"
+        };
+        string[] monsterTitles = {
+            "El Temible", "Del Pantano", "Sombrío", "El Horrible", "Sangriento",
+            "El Pestilente", "De la Oscuridad", "Acechador", "Gruñón", "El Baboso",
+            "De las Sombras", "Pálido", "Gritón", "El Infame", "Maldito"
+        };
+        return monsterNames[Random.Range(0, monsterNames.Length)] + " " + monsterTitles[Random.Range(0, monsterTitles.Length)];
     }
-
     public void BeginJourney()
     {
         if (QueueManager.Instance != null && QueueManager.Instance.queueEntrance != null)
         {
             SetState(State.WalkingToQueue);
             WalkTo(QueueManager.Instance.queueEntrance.position);
-            Debug.Log("[Client] Starting journey to queue entrance.");
         }
         else
         {
@@ -263,6 +304,7 @@ public class Client : MonoBehaviour
         SetState(State.Admitted);
         if (QueueManager.Instance != null && QueueManager.Instance.entrancePoint != null)
         {
+            ClientManager.Instance.OnClientAccepted(true);
             WalkTo(QueueManager.Instance.entrancePoint.position);
         }
         else
@@ -274,10 +316,35 @@ public class Client : MonoBehaviour
     public void LeaveRejected()
     {
         SetState(State.Angry);
+        if (CheckParameters())
+        {
+            ClientManager.Instance.OnCorrectClientRejected();
+        }
         WalkToExit();
         Debug.Log("[Client] Rejected! Leaving angry.");
     }
-
+    private bool CheckParameters()
+    {
+        var _currentInspectingClient = QueueManager.Instance.CurrentInspectingClient;
+        if (_currentInspectingClient.age >= 18)
+        {
+            Debug.Log("Es mayor de edad");
+            if (_currentInspectingClient.sobriety <= 66)
+            {
+                Debug.Log("Esta sobrio");
+                if (!_currentInspectingClient.hasIllegalItems)
+                {
+                    Debug.Log("No tiene objetos ilegales");
+                    if (_currentInspectingClient.pupils == 0)
+                    {
+                        Debug.Log("No está drogado");
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
     private void LeaveHappy()
     {
         happiness += 10;
@@ -303,7 +370,18 @@ public class Client : MonoBehaviour
 
     private void WalkToExit()
     {
-        Vector3 exitPos = _queuePoint != null ? _queuePoint.position : transform.position + Vector3.back * 10f;
+        Vector3 exitPos = transform.position + Vector3.back * 10f;
+
+        if (QueueManager.Instance != null && QueueManager.Instance.exitPoint != null)
+        {
+            exitPos = QueueManager.Instance.exitPoint.position;
+        }
+        else if (_queuePoint != null)
+        {
+            // Fallback: move to queue point only if exitPoint is not defined
+            exitPos = _queuePoint.position;
+        }
+
         WalkTo(exitPos);
     }
 
@@ -348,7 +426,10 @@ public class Client : MonoBehaviour
     private bool HasReachedDestination()
     {
         if (_agent.pathPending) return false;
-        if (_agent.remainingDistance > _agent.stoppingDistance) return false;
+
+        float effectiveStoppingDistance = Mathf.Max(_agent.stoppingDistance, destinationTolerance);
+        if (_agent.remainingDistance > effectiveStoppingDistance) return false;
+
         if (_agent.hasPath && _agent.velocity.sqrMagnitude > 0.01f) return false;
         return true;
     }
