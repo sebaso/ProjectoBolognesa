@@ -30,6 +30,7 @@ public class Client : MonoBehaviour
     public int pupils;
     public bool hasIllegalItems;
     public string dressCode;
+    public float destinationTolerance = 0.5f;
 
     public int money;
     public int happiness;
@@ -344,7 +345,10 @@ public class Client : MonoBehaviour
     private bool HasReachedDestination()
     {
         if (_agent.pathPending) return false;
-        if (_agent.remainingDistance > _agent.stoppingDistance) return false;
+        
+        float effectiveStoppingDistance = Mathf.Max(_agent.stoppingDistance, destinationTolerance);
+        if (_agent.remainingDistance > effectiveStoppingDistance) return false;
+        
         if (_agent.hasPath && _agent.velocity.sqrMagnitude > 0.01f) return false;
         return true;
     }
