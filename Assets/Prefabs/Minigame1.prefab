@@ -45,20 +45,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0346c06aa26c0964a9dcfe192a4fcac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Minigame1
-  _toolObj: {fileID: 0}
   _hudMinigameCanvas: {fileID: 3669127647593819567}
   _selectArrow: {fileID: 2936496283465433130}
   _keyAnimator: {fileID: 5967546436023809328}
   _failObj: {fileID: 4477871399356554954}
-  _exitButton: {fileID: 8461062496556239362}
   _maxSpeed: 25
   _incrementSpeed: 1
   _decrementSpeed: 0.5
   _rotationMultiplier: 100
   _timeLimit: 15
-  _redStopAngle: -55
-  _yellowStopAngle: 150
-  _greenStopAngle: 360
+  _redStopAngle: 45
+  _yellowStopAngle: 300
+  _greenStopAngle: 180
   _loseStopAngle: 0
 --- !u!1 &755991301023926531
 GameObject:

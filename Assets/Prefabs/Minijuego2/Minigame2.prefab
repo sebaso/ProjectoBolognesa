@@ -656,7 +656,7 @@ MonoBehaviour:
   _resultImage: {fileID: 1743725836478316737}
   _monsterParent: {fileID: 2183398542944140630}
   _monsterReferences: {fileID: 0}
-  _timeLimit: 10
+  _timeLimit: 20
   _hasAnomaly: 0
   _bodyCheckpoints:
   - {fileID: 0}

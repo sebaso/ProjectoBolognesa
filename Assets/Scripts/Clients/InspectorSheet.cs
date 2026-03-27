@@ -97,8 +97,17 @@ public class InspectorSheet : MonoBehaviour
         if (_currentClient == null) return;
         if (nameText) nameText.text = $"Nombre: {_currentClient.clientName}";
         if (ageText) ageText.text = $"Edad: {_currentClient.age}";
+
+        string sobrietyText = "";
+        if ((_currentClient.sobriety * 100) <= 33)
+            sobrietyText = "Bajo";
+        else if ((_currentClient.sobriety * 100) <= 66)
+            sobrietyText = "Medio";
+        else
+            sobrietyText = "Alto";
+        
         if (alcoholLevelText)
-            alcoholLevelText.text = _isAlcoholRevealed ? $"Alcohol: {(_currentClient.sobriety * 100):F0}%" : "Alcohol: ???";
+            alcoholLevelText.text = _isAlcoholRevealed ? $"Alcohol: {sobrietyText}" : "Alcohol: ???";
 
         if (illegalItemText)
             illegalItemText.text = _isItemsRevealed ? $"Item Ilegal: {(_currentClient.hasIllegalItems ? "SI" : "NO")}" : "Item Ilegal: ???";

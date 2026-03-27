@@ -79,6 +79,14 @@ public class Minigame1 : MonoBehaviour
         }
     }
 
+    private void ResetMinigame()
+    {
+        _currentSpeed = 0f;
+        _keyAnimator.Play("Idle");
+        _selectArrow.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        
+    }
+
     // public void Activate(bool value)
     // {
     //     //_toolObj.SetActive(value);
@@ -105,20 +113,8 @@ public class Minigame1 : MonoBehaviour
 
     public void StartMinigame()
     {
-        if (QueueManager.Instance.CurrentInspectingClient == null) return;
-        float sobriety = QueueManager.Instance.CurrentInspectingClient.sobriety;
-        if (sobriety < 0.3f)
-        {
-            SetWinState(1);
-        }
-        else if (sobriety < 0.6f)
-        {
-            SetWinState(2);
-        }
-        else
-        {
-            SetWinState(3);
-        }
+        ResetMinigame();
+        
         Debug.Log("Starting Minigame");
         //Activate(true);
         _timeRemaining = _timeLimit;
@@ -155,7 +151,7 @@ public class Minigame1 : MonoBehaviour
     {
         Debug.Log("You win!");
         _currentSpeed = 0f;
-        transform.rotation = Quaternion.Euler(0f, 0f, _winStopAngle);
+        _selectArrow.transform.rotation = Quaternion.Euler(0f, 0f, _winStopAngle);
         _keyAnimator.Play("Idle");
         _keyAnimator.gameObject.SetActive(false);
         InspectorSheet.Instance.RevealAlcohol();
@@ -166,18 +162,13 @@ public class Minigame1 : MonoBehaviour
     {
         Debug.Log("You lose!");
         _currentSpeed = 0f;
-        transform.rotation = Quaternion.Euler(0f, 0f, _loseStopAngle);
+        _selectArrow.transform.rotation = Quaternion.Euler(0f, 0f, _loseStopAngle);
         _keyAnimator.Play("Idle");
         _keyAnimator.gameObject.SetActive(false);
         _failObj.SetActive(true);
 
         _inGame = false;
     }
-
-    //TODO: Al pulsar E por primera vez inicia el giro de la flecha
-    //TODO: Cada vez que pulsas E aumenta en 0.5 la velocidad pero si no la pulsas decrementa en 0.25
-    //TODO: tienes un tiempo límite para llegar a 10 si no llegas pierdes
-    //Si pierdes sale interrogación y no sabes el resultado y no puedes repetir???
 
     public void StopMinigame()
     {

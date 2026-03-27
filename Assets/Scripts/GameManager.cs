@@ -43,9 +43,9 @@ public class GameManager : MonoBehaviour
         }
         
         //TODO: quitar los metodos de setminigame (estos son para pruebas)
-        SetMinigame1(1);
-        SetMinigame2(true, _prefabminigame2);
-        SetMinigame3(1, _prefabminigame3);
+        //SetMinigame1(1);
+        //SetMinigame2(true, _prefabminigame2);
+        //SetMinigame3(1, _prefabminigame3);
     }
     
     public bool GetInMinigame()
@@ -57,48 +57,69 @@ public class GameManager : MonoBehaviour
         _inMinigame = value;
     }
 
-    //TODO: llamar al llegar un client a la zona de inspection
-    public void SetMinigame1(int value)
+    public void SetMinigame1()
     {
         //1 para no borracho
         //2 para algo de alcohol pero puede entrar
         //3 para borracho
+        int value = 1;
+        
+        float clientSobriety = QueueManager.Instance.CurrentInspectingClient.sobriety;
+
+        if ((clientSobriety * 100) <= 33)
+            value = 1;
+        else if ((clientSobriety * 100) <= 66)
+            value = 2;
+        else
+            value = 3;
+        
         _minigame1.SetWinState(value);
     }
     
-    //TODO: llamar al llegar un client a la zona de inspection
-    public void SetMinigame2(bool hasAnomaly, GameObject minigame2MonsterPrefab)
+    public void SetMinigame2()
     {
+        bool hasAnomaly = QueueManager.Instance.CurrentInspectingClient.hasIllegalItems;
+
+        GameObject minigame2MonsterPrefab = QueueManager.Instance.CurrentInspectingClient.minigame2MonsterPrefab;
+        
         _minigame2.SetAnomaly(hasAnomaly);
         _minigame2.SetMonsterPrefab(minigame2MonsterPrefab);
     }
     
-    //TODO: llamar al llegar un client a la zona de inspection
-    public void SetMinigame3(int drugState, GameObject minigame3MonsterPrefab)
+    public void SetMinigame3()
     {
         //0 no drogado
         //1 drogado
+
+        int drugState = QueueManager.Instance.CurrentInspectingClient.pupils;
+        
+        GameObject minigame3MonsterPrefab = QueueManager.Instance.CurrentInspectingClient.minigame3MonsterPrefab;
+        
         _minigame3.SetState(drugState);
         _minigame3.SetMonsterPrefab(minigame3MonsterPrefab);
     }
 
     public void StartMinigame1()
     {
+        SetMinigame1();
+        
         _inMinigame = true;
         _minigame1.StartMinigame();
     }
     
     public void StartMinigame2()
     {
+        SetMinigame2();
+        
         _inMinigame = true;
         _minigame2.StartMinigame();
     }
     
     public void StartMinigame3()
     {
+        SetMinigame3();
         _inMinigame = true;
         _minigame3.StartMinigame();
     }
 
-    //TODO: DESABILITAR CURSOR CON PLAYERCAMERA.INSTANCE.ONDISABLE() AL SALIR DEL MINIJUEGO
 }

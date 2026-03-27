@@ -53,6 +53,7 @@ public class Minigame3 : MonoBehaviour
     private float _currentProgress;
     private bool _hasStarted;
     private bool _inGame;
+    private GameObject _actualMonsterPrefab;
 
     private float _noiseSeedX;
     private float _noiseSeedY;
@@ -88,7 +89,7 @@ public class Minigame3 : MonoBehaviour
     
     public void SetMonsterPrefab(GameObject monsterPrefab)
     {
-        Instantiate(monsterPrefab, _monsterParent.transform);
+        _actualMonsterPrefab = Instantiate(monsterPrefab, _monsterParent.transform);
     }
 
     public void SetMonsterReferences()
@@ -106,6 +107,8 @@ public class Minigame3 : MonoBehaviour
     }
     public void StartMinigame()
     {
+        //ResetMinigame();
+        Debug.Log("Starting Minigame");
         SetMonsterReferences();
         _resultImage.gameObject.SetActive(false);
         _hudMinigameCanvas.SetActive(true);
@@ -115,10 +118,18 @@ public class Minigame3 : MonoBehaviour
         _progressBar.minValue = 0f;
         _progressBar.maxValue = 1f;
         _progressBar.value = 0f;
+        _currentProgress = 0f;
 
         _currentTime = 0f;
 
         _inGame = true;
+    }
+
+    private void ResetMinigame()
+    {
+        Debug.Log("ResetMinigame");
+        if(_actualMonsterPrefab != null)
+            Destroy(_actualMonsterPrefab);
     }
 
     private void MoveScannerToMouse()
@@ -180,6 +191,8 @@ public class Minigame3 : MonoBehaviour
             ShowResult(_win0Sprite);
         else
             ShowResult(_win1Sprite);
+        
+        InspectorSheet.Instance.RevealPupils();
         Debug.Log("You Win!");
     }
 
@@ -201,6 +214,7 @@ public class Minigame3 : MonoBehaviour
         if (_inGame) return;
         _hudMinigameCanvas.SetActive(false);
         _hasStarted = false;
+        ResetMinigame();
         PlayerCamera.Instance.OnDisableCursor();
         GameManager.Instance.SetInMinigame(false);
     }

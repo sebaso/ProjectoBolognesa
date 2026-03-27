@@ -30,6 +30,8 @@ public class Client : MonoBehaviour
     public int pupils;
     public bool hasIllegalItems;
     public string dressCode;
+    public GameObject minigame2MonsterPrefab;
+    public GameObject minigame3MonsterPrefab;
 
     public int money;
     public int happiness;
@@ -143,6 +145,8 @@ public class Client : MonoBehaviour
         hasIllegalItems = Random.value > 0.9f;
         string[] styles = { "Casual", "Formal", "Deportivo" };
         dressCode = styles[Random.Range(0, styles.Length)];
+        minigame2MonsterPrefab = selectedModel.GetComponent<MonsterPrefabManager>().GetMinigame2Prefab();
+        minigame3MonsterPrefab =  selectedModel.GetComponent<MonsterPrefabManager>().GetMinigame3Prefab();
     }
 
     private string GetRandomName()

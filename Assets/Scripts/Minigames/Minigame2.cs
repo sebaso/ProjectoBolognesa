@@ -54,12 +54,14 @@ public class Minigame2 : MonoBehaviour
 
     private float _currentTime;
     private bool _isGameActive;
+    private GameObject _actualMonsterPrefab;
     private HashSet<RectTransform> _scannedCheckpoints = new HashSet<RectTransform>();
 
     private Vector2 _monsterNormalLocalPosition;
 
     private void Start()
     {
+        _minigameCanvas.SetActive(false);
         //StartMinigame();
     }
 
@@ -102,6 +104,8 @@ public class Minigame2 : MonoBehaviour
     //Esto se llamará desde el objeto que usa el player
     public void StartMinigame()
     {
+        //ResetMinigame();
+        
         Debug.Log("Starting Minigame!");
         SetMonsterReferences();
         SetObjects(_hasAnomaly);
@@ -124,7 +128,7 @@ public class Minigame2 : MonoBehaviour
 
     public void SetMonsterPrefab(GameObject monsterPrefab)
     {
-        Instantiate(monsterPrefab, _monsterParent.transform);
+        _actualMonsterPrefab = Instantiate(monsterPrefab, _monsterParent.transform);
     }
 
     private void SetMonsterReferences()
@@ -158,6 +162,12 @@ public class Minigame2 : MonoBehaviour
             _normalObjBoxes[i].GetComponent<Image>().sprite = null;
             _normalObjBoxes[i].gameObject.SetActive(false);
         }
+    }
+
+    private void ResetMinigame()
+    {
+        if(_actualMonsterPrefab != null)
+            Destroy(_actualMonsterPrefab);
     }
 
     public void SetObjects(bool hasAnomaly)
@@ -247,6 +257,8 @@ public class Minigame2 : MonoBehaviour
     private void Win()
     {
         _isGameActive = false;
+        
+        InspectorSheet.Instance.RevealIllegalItems();
         Debug.Log("You win!");
     }
 
@@ -263,6 +275,8 @@ public class Minigame2 : MonoBehaviour
         _isGameActive = false;
         
         _minigameCanvas.SetActive(false);
+        
+        ResetMinigame();
         PlayerCamera.Instance.OnDisableCursor();
         GameManager.Instance.SetInMinigame(false);
     }
