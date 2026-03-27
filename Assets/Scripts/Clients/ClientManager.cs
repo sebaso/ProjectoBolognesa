@@ -44,6 +44,12 @@ public class ClientManager : MonoBehaviour
     private int _currentNight;
     private int _nextClients;
 
+    [Header("Audio")]
+    public AudioClip acceptSFX;
+    public AudioClip rejectSFX;
+    public AudioClip incorrectSFX;
+    private AudioSource _audioSource;
+
     [System.Serializable]
     public class PedestrianRoute
     {
@@ -60,6 +66,8 @@ public class ClientManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            _audioSource = gameObject.GetComponent<AudioSource>();
+            if (_audioSource == null) _audioSource = gameObject.AddComponent<AudioSource>();
         }
         else
         {
@@ -179,26 +187,40 @@ public class ClientManager : MonoBehaviour
         {
             _correctClientsAcepted++;
             CurrencyController.Instance.AddScore();
+            PlaySound(acceptSFX);
         }
         else
         {
             CurrencyController.Instance.SubtractScore();
+            PlaySound(incorrectSFX);
         }
         _remaningClients--;
         if (_remaningClients <= 0)
             OnNightEnds?.Invoke();
     }
+
     public void OnCorrectClientRejected()
     {
         CurrencyController.Instance.SubtractScore();
         _correctClientsRejected++;
         _remaningClients--;
+        PlaySound(rejectSFX);
         if (_remaningClients <= 0)
             OnNightEnds?.Invoke();
     }
+
     public void OnSneakySneaked()
     {
         _intrudersAcepted++;
         CurrencyController.Instance.SubtractScore();
+        PlaySound(incorrectSFX);
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if (clip != null && _audioSource != null)
+        {
+            _audioSource.PlayOneShot(clip);
+        }
     }
 }
